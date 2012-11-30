@@ -171,7 +171,7 @@ if [ $INSFREESWITCH -eq 1 ]; then
 	#------------------------
 	/bin/grep 'build_modules' /tmp/install_fusion_status > /dev/null
 	echo "Now copy modules.conf for freeswitch we used to build originally"
-	cp $CONFFILE /usr/src/freeswitch/modules.conf
+	cp $MODCONF /usr/src/freeswitch/modules.conf
 		if [ $? -ne 0 ]; then
 			#previous had an error
 			/bin/echo "ERROR: Failed to enable build modules in modules.conf."
