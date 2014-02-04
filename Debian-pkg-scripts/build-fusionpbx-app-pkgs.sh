@@ -1,14 +1,17 @@
 #!/bin/bash
+wrkdir=/usr/src/fusion-pkgs
+build_stable="n"
+
+rm -rf "$wrkdir"
+mkdir "$wrkdir"
+
 #get pkg system scripts
-svn export http://fusionpbx.googlecode.com/svn/branches/dev/Debian-pkg-scripts /usr/src
+svn export http://fusionpbx.googlecode.com/svn/branches/dev/Debian-pkg-scripts "$wrkdir"
 
 #pkg core
 
 #get src for core
-svn export http://fusionpbx.googlecode.com/svn/branches/dev/fusionpbx /usr/src/fusionpbx-core
-cd /usr/src/fusionpbx-core
-rm -rf app/* themes/*       
-dpkg-buildpackage -rfakeroot -i
+svn export http://fusionpbx.googlecode.com/svn/branches/dev/fusionpbx "$wrkdir"/fusionpbx-core
 
 #get src for themes         
 for h in accessable classic default enhanced nature
@@ -25,7 +28,7 @@ registrations ring_groups schemas services settings sip_profiles sip_status sql_
 system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr xmpp
 do
 j="${i//_/-}"
-do svn export http://fusionpbx.googlecode.com/svn/branches/dev/fusionpbx/app/"${i}" /usr/src/fusionpbx-apps/"${j}"/"${i}" ;done
+do svn export http://fusionpbx.googlecode.com/svn/branches/dev/fusionpbx/app/"${i}" "$wrkdir"/fusionpbx-apps/"${j}"/"${i}" ;done
 done
 
 #Build pkgs
@@ -37,7 +40,7 @@ dpkg-buildpackage -rfakeroot -i
 
 #build theme pkgs
 for h in accessable classic default enhanced nature
-do cd fusionpbx-themes-"${i}";
+do cd "$wrkdir"/fusionpbx-themes-"${i}";
 dpkg-buildpackage -r fakeroot -i
 done    
 
@@ -50,14 +53,10 @@ ivr-menu login log-viewer meetings modules music-on-hold park provision recordin
 registrations ring-groups schemas services settings sip-profiles sip-status sql-query \  
 system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr xmpp
 
-do cd fusionpbx-themes-"${k}" ; dpkg-buildpackage -r fakeroot -i
+do cd "$wrkdir"/fusionpbx-app-"${k}" ; dpkg-buildpackage -r fakeroot -i
 done    
 
 
-for i in 
-do cd fusionpbx-apps-"${i}";
-dpkg-buildpackage -r fakeroot -i
-done        
       
 
 
