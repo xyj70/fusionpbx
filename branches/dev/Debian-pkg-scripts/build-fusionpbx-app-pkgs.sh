@@ -1,6 +1,12 @@
 #!/bin/bash
 wrkdir=/usr/src/fusion-pkgs
-build_stable="n"
+build_stable_pkgs="n"
+
+if [[ $build_stable_pkgs == "y" ]]; then
+svn_src=branch/fusionpbx
+else
+svn_src=branches/dev/
+fi
 
 rm -rf "$wrkdir"
 mkdir "$wrkdir"
@@ -8,15 +14,13 @@ mkdir "$wrkdir"
 #get pkg system scripts
 svn export http://fusionpbx.googlecode.com/svn/branches/dev/Debian-pkg-scripts "$wrkdir"
 
-#pkg core
-
 #get src for core
-svn export http://fusionpbx.googlecode.com/svn/branches/dev/fusionpbx "$wrkdir"/fusionpbx-core
+svn export http://fusionpbx.googlecode.com/svn/"$svn_src"/fusionpbx "$wrkdir"/fusionpbx-core
+
 
 #get src for themes         
 for h in accessable classic default enhanced nature
-do svn export http://fusionpbx.googlecode.com/svn/branches/dev/fusionpbx/theme/"${i}" /usr/src/fusionpbx-themes/fusionpbx-themes-"${i}"/"${i}";
-done
+do svn export http://fusionpbx.googlecode.com/"$svn_src"/dev/fusionpbx/theme/"${i}" /usr/src/fusionpbx-themes/fusionpbx-themes-"${i}"/"${i}";done
 
 #get src for aps 
 for i in adminer call_block call_broadcast call_center call_center_active call_flows calls \
@@ -28,13 +32,12 @@ registrations ring_groups schemas services settings sip_profiles sip_status sql_
 system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr xmpp
 do
 j="${i//_/-}"
-do svn export http://fusionpbx.googlecode.com/svn/branches/dev/fusionpbx/app/"${i}" "$wrkdir"/fusionpbx-apps/"${j}"/"${i}" ;done
-done
+do svn export http://fusionpbx.googlecode.com/svn/"$svn_src"/fusionpbx/app/"${i}" "$wrkdir"/fusionpbx-apps/"${j}"/"${i}" ;done
 
 #Build pkgs
 
 #build core pkg
-cd /usr/src/fusionpbx-core
+cd "$wrkdir"/fusionpbx-core
 rm -rf app/* themes/*       
 dpkg-buildpackage -rfakeroot -i
 
@@ -52,7 +55,6 @@ dialplan-outbound edit exec extensions fax fifo fifo-list follow-me gateways hot
 ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
 registrations ring-groups schemas services settings sip-profiles sip-status sql-query \  
 system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr xmpp
-
 do cd "$wrkdir"/fusionpbx-app-"${k}" ; dpkg-buildpackage -r fakeroot -i
 done    
 
