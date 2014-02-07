@@ -4,7 +4,7 @@ set -e
 case "$1" in
   remove|upgrade|deconfigure)
     if [ -d /usr/share/nginx/www/fusionpbx/themes/classic ]; then
-      echo "We're about to remove fusionpnx accessable theme..." >&2
+      echo "We're about to remove fusionpnx classic theme..." >&2
     fi
     ;;
   failed-upgrade)
