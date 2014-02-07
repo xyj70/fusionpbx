@@ -1,12 +1,12 @@
-Source: fusionpbx-theme-accessable
+Source: fusionpbx-theme-nature
 Section: user/www
 Priority: extra
 Maintainer: Richard Neese <r.neese@gmail.com>
 Standards-Version: 3.7.2
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
 
-Package: fusionpbx-theme-accessable
+Package: fusionpbx-theme-nature
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx-theme-accessable: theme for blind users to use the Web gui for controlling/administrating freeswitch softwitch 
+Description: Fusionpbx-theme-nature: nature theme for users to use the Web gui for controlling/administrating freeswitch softwitch 
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
