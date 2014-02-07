@@ -1,11 +1,11 @@
-Source: fusionpbx-app-adminer
+Source: fusionpbx-app-settings
 Section: user/www
 Priority: extra
 Maintainer: Richard Neese <r.neese@gmail.com>
 Standards-Version: 3.7.2
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
 
-Package: fusionpbx-app-adminer
+Package: fusionpbx-app-settings
 Architecture: all
 Depends: ${misc:Depends}
 Description: Fusionpbx:  Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. Adminer is available for MySQL, PostgreSQL, SQLite, MS SQL and Oracle. 
