@@ -8,5 +8,5 @@ Standards-Version: 3.7.2
 Package: fusionpbx-app-call-block
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx:  Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. Adminer is available for MySQL, PostgreSQL, SQLite, MS SQL and Oracle. 
+Description: Fusionpbx-app-call-block: A tool to block incoming numbers.
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
