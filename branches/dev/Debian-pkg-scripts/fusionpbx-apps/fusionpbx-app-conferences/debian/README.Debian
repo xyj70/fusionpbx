@@ -1,7 +1,6 @@
 fussionpbx-app-conferences
 --------------------
-Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. Adminer is available for MySQL, PostgreSQL, SQLite, MS SQL and Oracle. 
-
+Conferences is used to setup conference rooms with a name, description, and optional pin number.
 
  -- Richard Neese <r.neese@gmail.com> Fri , 17 Jan 2014 07:07:00 -0500
 
