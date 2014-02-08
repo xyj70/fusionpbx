@@ -1,7 +1,6 @@
 fussionpbx-app-contacts
 --------------------
-Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. Adminer is available for MySQL, PostgreSQL, SQLite, MS SQL and Oracle. 
-
+Provides a place to store contact information for individuals and organizations.
 
  -- Richard Neese <r.neese@gmail.com> Fri , 17 Jan 2014 07:07:00 -0500
 
