@@ -8,5 +8,5 @@ Standards-Version: 3.7.2
 Package: fusionpbx-app-hot-desking
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx:  Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. Adminer is available for MySQL, PostgreSQL, SQLite, MS SQL and Oracle. 
+Description: Fusionpbx-app-hot-desk: Login into hot desking with an ID and your voicemail password to direct your calls to a remote extension.
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
