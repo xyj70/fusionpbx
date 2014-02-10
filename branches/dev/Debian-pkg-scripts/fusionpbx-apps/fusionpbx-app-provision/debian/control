@@ -8,5 +8,5 @@ Standards-Version: 3.7.2
 Package: fusionpbx-app-provision
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx:  Adminer (formerly phpMinAdmin) is a full-featured database management tool written in PHP. Adminer is available for MySQL, PostgreSQL, SQLite, MS SQL and Oracle. 
+Description: Fusionpbx-app-provisioning: used by devices to provision them for use with the pbx system.  
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
