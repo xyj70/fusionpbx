@@ -3,8 +3,8 @@ set -e
 
 case "$1" in
   remove|upgrade|deconfigure)
-    if [ -d /usr/share/nginx/www/fusionpbx/app/conference-center ]; then
-      echo "We're about to remove a configured fusionpbx conference-center app..." >&2
+    if [ -d /usr/share/nginx/www/fusionpbx/app/conference-centers ]; then
+      echo "We're about to remove a configured fusionpbx conference-centers app..." >&2
     fi
     ;;
   failed-upgrade)
