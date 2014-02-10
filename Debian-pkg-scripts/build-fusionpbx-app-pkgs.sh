@@ -34,30 +34,30 @@ do svn export "$svn_src"/fusionpbx/app/"${i}" "$wrk_dir"/fusionpbx-apps/fusionpb
 done
 
 #Build pkgs
+#SET Version nmbr in debian/changelog
+
 
 #build core pkg
 cd "$wrk_dir"/fusionpbx-core
-rm -rf app/* themes/*       
+rm -rf app/* themes/*
 dpkg-buildpackage -rfakeroot -i
 
 #build theme pkgs
-for h in accessable classic default enhanced nature
-do cd "$wrk_dir"/fusionpbx-themes-"${i}";
-dpkg-buildpackage -r fakeroot -i
-done    
+for i in accessible classic default enhanced nature
+do cd "$wrk_dir"/fusionpbx-themes/fusionpbx-theme-"${i}"
+dpkg-buildpackage -rfakeroot -i
+done
 
 #build app pkgs
-for k in adminer call-block call-broadcast call-center call-center-active call-flows calls \
+for i in adminer call-block call-broadcast call-center call-center-active call-flows calls \
 calls-active click-to-call conference-centers conferences conferences-active \
 contacts content destinations devices dialplan dialplan-features dialplan-inbound \
 dialplan-outbound edit exec extensions fax fifo fifo-list follow-me gateways hot-desking \
 ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
-registrations ring-groups schemas services settings sip-profiles sip-status sql-query \  
+registrations ring-groups schemas services settings sip-profiles sip-status sql-query \
 system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr xmpp
-do cd "$wrk_dir"/fusionpbx-app-"${k}" ; dpkg-buildpackage -r fakeroot -i
-done    
-
-
-      
+do cd "$wrk_dir"/fusionpbx-apps/fusionpbx-app-"${i}" 
+dpkg-buildpackage -rfakeroot -i
+done
 
 
