@@ -1,5 +1,5 @@
 #!/bin/bash
-PKGVER=3.5-1
+PKGVER=3.5-1 # this is the version number you update
 TIME=$(date)
 REP0=stable # stable or devel
 WRKDIR=/usr/src/fusionpbx-pkgs-build
@@ -28,7 +28,7 @@ done
 #get src for apps
 for i in adminer call_block call_broadcast call_center call_center_active call_flows calls \
 calls_active click_to_call conference_centers conferences conferences_active \
-contacts content destinations devices dialplan dialplan_features dialplan_inbound \
+contacts content destinations devices dialplan dialplan_inbound \
 dialplan_outbound edit exec extensions fax fifo fifo_list follow_me gateways hot_desking \
 ivr_menu login log_viewer meetings modules music_on_hold park provision recordings \
 registrations ring_groups schemas services settings sip_profiles sip_status sql_query \
@@ -58,7 +58,7 @@ done
 
 for i in adminer call_block call_broadcast call_center call_center_active call_flows calls \
 calls_active click_to_call conference_centers conferences conferences_active \
-contacts content destinations devices dialplan dialplan_features dialplan_inbound \
+contacts content destinations devices dialplan dialplan_inbound \
 dialplan_outbound edit exec extensions fax fifo fifo_list follow_me gateways hot_desking \
 ivr_menu login log_viewer meetings modules music_on_hold park provision recordings \
 registrations ring_groups schemas services settings sip_profiles sip_status sql_query \
@@ -86,7 +86,7 @@ done
 #build app pkgs
 for i in adminer call-block call-broadcast call-center call-center-active call-flows calls \
 calls-active click-to-call conference-centers conferences conferences-active \
-contacts content destinations devices dialplan dialplan-features dialplan-inbound \
+contacts content destinations devices dialplan dialplan-inbound \
 dialplan-outbound edit exec extensions fax fifo fifo-list follow-me gateways hot-desking \
 ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
 registrations ring-groups schemas services settings sip-profiles sip-status sql-query \
@@ -96,14 +96,14 @@ dpkg-buildpackage -rfakeroot -i
 done
 
 cd "$WRKDIR"
-mkdir -p "$WRKDIR"/debs-fusionpbx-$PKGVER-wheezy
+mkdir -p "$WRKDIR"/debs-fusionpbx-$PKGVER-"$REPO"-wheezy
 
 
-mv *.deb debs-fusionpbx-$PKGVER-wheezy
-mv *.changes debs-fusionpbx-$PKGVER-wheezy
-mv *.xz debs-fusionpbx-$PKGVER-wheezy
-mv *.dsc debs-fusionpbx-$PKGVER-wheezy
+mv *.deb debs-fusionpbx-$PKGVER-"$REPO"-wheezy
+mv *.changes debs-fusionpbx-$PKGVER-"$REPO"-wheezy
+mv *.xz debs-fusionpbx-$PKGVER-"$REPO"-wheezy
+mv *.dsc debs-fusionpbx-$PKGVER-"$REPO"-wheezy
 
-cp -rp "$WRKDIR"/debs-fusionpbx-$PKGVER-wheezy/* "$REPO"/incoming
+cp -rp "$WRKDIR"/debs-fusionpbx-"$PKGVER"-"$REPO"-wheezy/* "$REPO"/incoming
 
 cd "$REPO" && ./import-new-pkgs.sh
