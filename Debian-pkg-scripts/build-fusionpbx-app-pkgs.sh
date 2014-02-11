@@ -19,7 +19,7 @@ svn export http://fusionpbx.googlecode.com/svn/branches/dev/Debian-pkg-scripts "
 
 #SET Version nmbr in debian/changelog
 cat > "$WRKDIR"/fusionpbx-core/debian/changelog << DELIM
-fusionpbx-core" ($PKGVER) stable; urgency=low
+fusionpbx-core ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-core
 
