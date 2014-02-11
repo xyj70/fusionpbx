@@ -1,7 +1,9 @@
 #!/bin/bash
 PKGVER=3.5-1 # this is the version number you update
 TIME=$(date +"%a, %d %b %Y %X")
-REP0=stable # stable or devel
+STABLE=/usr/home/repo/deb/debian
+DEVEL=/usr/home/repo/deb-dev/debian
+REPO=$DEVEL
 WRKDIR=/usr/src/fusionpbx-pkgs-build
 
 rm -rf /usr/src/fusionpbx-pkgs-build
