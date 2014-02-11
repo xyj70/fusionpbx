@@ -1,3 +1,10 @@
+Source: fusionpbx-app-adminer
+Section: user/www
+Priority: extra
+Maintainer: Richard Neese <r.neese@gmail.com>
+Standards-Version: 3.7.2
+#XSBC-Bugtracker: mailto:r.neese@gmail.com
+
 Package: fusionpbx-app-adminer
 Architecture: all
 Depends: ${misc:Depends}
