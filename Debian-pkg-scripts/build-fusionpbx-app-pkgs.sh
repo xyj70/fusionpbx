@@ -1,6 +1,6 @@
 #!/bin/bash
 PKGVER=3.5-1 # this is the version number you update
-TIME=$(date)
+TIME=$(date +"%a, %d %b %Y %X")
 REP0=stable # stable or devel
 WRKDIR=/usr/src/fusionpbx-pkgs-build
 
@@ -23,16 +23,18 @@ fusionpbx-core" ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-core
 
- -- Richard Neese <r.neese@gmail.com> $TIME -0500
+ -- Richard Neese <r.neese@gmail.com>  $TIME -0500
+
 DELIM
 
 for i in accessible classic default enhanced nature
 do cat > "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i//_/-}"/debian/changelog << DELIM
-fusionpbx-app-"${i//_/-}" ($PKGVER) stable; urgency=low
+fusionpbx-app-${i//_/-} ($PKGVER) stable; urgency=low
 
-  * new deb pkg for fusionpbx-theme-"${i//_/-}"
+  * new deb pkg for fusionpbx-theme-${i//_/-}
 
- -- Richard Neese <r.neese@gmail.com> $TIME -0500
+ -- Richard Neese <r.neese@gmail.com>  $TIME -0500
+
 DELIM
 done
 
@@ -43,12 +45,13 @@ dialplan_outbound edit exec extensions fax fifo fifo_list follow_me gateways hot
 ivr_menu login log_viewer meetings modules music_on_hold park provision recordings \
 registrations ring_groups schemas services settings sip_profiles sip_status sql_query \
 system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr xmpp
-do cat > "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/debian/changelog << DELIM
-fusionpbx-app-"${i//_/-}" ($PKGVER) stable; urgency=low
+do cat > "$WRKDIR"/fusionpbx-apps/fusionpbx-app-${i//_/-}/debian/changelog << DELIM
+fusionpbx-app-${i//_/-} ($PKGVER) stable; urgency=low
 
-  * new deb pkg for fusionpbx-app-"${i//_/-}"
+  * new deb pkg for fusionpbx-app-${i//_/-}
 
- -- Richard Neese <r.neese@gmail.com> $TIME -0500
+ -- Richard Neese <r.neese@gmail.com>  $TIME -0500
+
 DELIM
 done
 
