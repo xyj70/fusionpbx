@@ -99,16 +99,16 @@ dpkg-buildpackage -rfakeroot -i
 done
 
 cd "$WRKDIR"
-mkdir -p "$WRKDIR"/debs-fusionpbx-"$PKGVER"-"$REPO"-wheezy
+mkdir -p "$WRKDIR"/debs-fusionpbx-wheezy
 
-for i in fusionpbx-core fusionpbx-apps fusionpbx-themes
+for i in "$WRKDIR" "$WRKDIR"/fusionpbx-apps "$WRKDIR"/fusionpbx-themes
 do
-mv *.deb debs-fusionpbx-"$PKGVER"-"$REPO"-wheezy
-mv *.changes debs-fusionpbx-"$PKGVER"-"$REPO"-wheezy
-mv *.xz debs-fusionpbx-"$PKGVER"-"$REPO"-wheezy
-mv *.dsc debs-fusionpbx-"$PKGVER"-"$REPO"-wheezy
+mv "${i}"/*.deb "$WRKDIR"/debs-fusionpbx-wheezy
+mv "${i}"/*.changes "$WRKDIR"/debs-fusionpbx-wheezy
+mv "${i}"/*.gz "$WRKDIR"/debs-fusionpbx-wheezy
+mv "${i}"/*.dsc "$WRKDIR"/debs-fusionpbx-wheezy
 done
 
-cp -rp "$WRKDIR"/debs-fusionpbx-"$PKGVER"-"$REPO"-wheezy/* "$REPO"/incoming
+cp -rp "$WRKDIR"/debs-fusionpbx-wheezy/* "$REPO"/incoming
 
 cd "$REPO" && ./import-new-pkgs.sh
