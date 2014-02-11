@@ -99,7 +99,7 @@ dpkg-buildpackage -rfakeroot -i
 done
 
 cd "$WRKDIR"
-mkdir -p "$WRKDIR"/debs-fusionpbx-$PKGVER-"$REPO"-wheezy
+mkdir -p "$WRKDIR"/debs-fusionpbx-"$PKGVER"-"$REPO"-wheezy
 
 for i in fusionpbx-core fusionpbx-apps fusionpbx-themes
 do
