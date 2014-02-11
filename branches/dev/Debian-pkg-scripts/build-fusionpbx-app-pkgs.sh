@@ -29,7 +29,7 @@ DELIM
 
 for i in accessible classic default enhanced nature
 do cat > "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i//_/-}"/debian/changelog << DELIM
-fusionpbx-app-${i//_/-} ($PKGVER) stable; urgency=low
+fusionpbx-theme-${i//_/-} ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-theme-${i//_/-}
 
