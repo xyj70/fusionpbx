@@ -4,9 +4,7 @@ set -e
 case "$1" in
   configure)
     for x in \
-      /etc/fusionpbx \
-      /usr/share/nginx/www/fusionpbx \
-      /var/lib/fusionpbx;
+      /usr/share/nginx/www/fusionpbx/app/ring_groups
     do
       chown -R www-data:www-data $x
     done
