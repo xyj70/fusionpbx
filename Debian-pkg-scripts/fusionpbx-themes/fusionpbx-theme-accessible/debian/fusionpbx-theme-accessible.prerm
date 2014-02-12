@@ -3,7 +3,7 @@ set -e
 
 case "$1" in
   remove|upgrade|deconfigure)
-    if [ -d /usr/share/nginx/www/fusionpbx/themes/accessable ]; then
+    if [ -d /usr/share/nginx/www/fusionpbx/themes/accessible ]; then
       echo "We're about to remove fusionpnx accessable theme..." >&2
     fi
     ;;
