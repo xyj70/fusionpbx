@@ -30,8 +30,8 @@ fusionpbx-core ($PKGVER) stable; urgency=low
 DELIM
 
 for i in accessible classic default enhanced nature
-do cat > "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i//_/-}"/debian/changelog << DELIM
-fusionpbx-theme-${i//_/-} ($PKGVER) stable; urgency=low
+do cat > "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/debian/changelog << DELIM
+fusionpbx-theme-${i} ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-theme-${i//_/-}
 

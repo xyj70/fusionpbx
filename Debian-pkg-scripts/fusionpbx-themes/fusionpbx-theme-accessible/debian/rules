@@ -49,7 +49,7 @@ install: build
 	# Add here commands to install the package into debian/lookup.
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
-	mkdir -p debian/fusionpbx-theme-accessable/usr/share/nginx/www/fusionpbx/themes
+	mkdir -p debian/fusionpbx-theme-accessible/usr/share/nginx/www/fusionpbx/themes
 	cp -pr accessible debian/fusionpbx-theme-accessible/usr/share/nginx/www/fusionpbx/themes
 
 build-indep: build install
