@@ -9,7 +9,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-APPNAME := fusionpbx-theme-accessable
+APPNAME := fusionpbx-theme-accessible
 
 CFLAGS = -Wall -g
 
@@ -50,7 +50,7 @@ install: build
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-theme-accessable/usr/share/nginx/www/fusionpbx/themes
-	cp -pr accessable debian/fusionpbx-theme-accessable/usr/share/nginx/www/fusionpbx/themes
+	cp -pr accessible debian/fusionpbx-theme-accessible/usr/share/nginx/www/fusionpbx/themes
 
 build-indep: build install
 
