@@ -49,7 +49,7 @@ install: build
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-app-calls-active/usr/share/nginx/www/fusionpbx/app
-	cp -pr calls-active debian/fusionpbx-app-calls-active/usr/share/nginx/www/fusionpbx/app
+	cp -pr calls_active debian/fusionpbx-app-calls-active/usr/share/nginx/www/fusionpbx/app
 
 build-indep: build install
 
