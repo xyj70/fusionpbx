@@ -8,5 +8,5 @@ Standards-Version: 3.7.2
 Package: fusionpbx-app-conference-centers
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx-app-conference-centers:  Conferences Centers allows one or more audio and video conference rooms
+Description: Fusionpbx-app-conference-centers:  Conference Centers allows one or more audio and video conference rooms
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
