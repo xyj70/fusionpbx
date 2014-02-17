@@ -9,7 +9,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-APPNAME := fusionpbx-provisioning-template-aastra
+APPNAME := fusionpbx-provisioning-template-grandstream
 
 CFLAGS = -Wall -g
 
@@ -49,8 +49,8 @@ install: build
 	# Add here commands to install the package into debian/lookup.
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
-	mkdir -p debian/fusionpbx-provisioning-template-aastra/usr/share/nginx/www/fusionpbx/resources/templates/provisioning
-	cp -pr aastra debian/fusionpbx-app-provisioning-aastra/usr/share/nginx/www/fusionpbx/resources/templates/provisioning
+	mkdir -p debian/fusionpbx-provisioning-template-grandstream/usr/share/nginx/www/fusionpbx/resources/templates/provisioning
+	cp -pr grandstream debian/fusionpbx-app-provisioning-grandstream/usr/share/nginx/www/fusionpbx/resources/templates/provisioning
 
 build-indep: build install
 
