@@ -5,7 +5,7 @@ Maintainer: Richard Neese <r.neese@gmail.com>
 Standards-Version: 3.7.2
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
 
-Package: fusionpbx-provisioning-template-
+Package: fusionpbx-provisioning-template-grandstream
 Architecture: all
 Depends: ${misc:Depends}
 Description: Fusionpbx-provisioning-template-grandstream: Provisioning templates for grandstream sip phons  
