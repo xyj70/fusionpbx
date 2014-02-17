@@ -50,7 +50,7 @@ install: build
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-provisioning-template-polycom/usr/share/nginx/www/fusionpbx/resources/templates/provision
-	cp -pr polycom debian/fusionpbx-app-provisioning-polycom/usr/share/nginx/www/fusionpbx/resources/templates/provision
+	cp -pr polycom debian/fusionpbx-provisioning-template-polycom/usr/share/nginx/www/fusionpbx/resources/templates/provision
 
 build-indep: build install
 

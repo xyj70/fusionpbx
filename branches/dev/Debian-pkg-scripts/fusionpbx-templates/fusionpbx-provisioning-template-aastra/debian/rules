@@ -50,7 +50,7 @@ install: build
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-provisioning-template-aastra/usr/share/nginx/www/fusionpbx/resources/templates/provision
-	cp -pr aastra debian/fusionpbx-app-provisioning-aastra/usr/share/nginx/www/fusionpbx/resources/templates/provision
+	cp -pr aastra debian/fusionpbx-provisioning-template-aastra/usr/share/nginx/www/fusionpbx/resources/templates/provision
 
 build-indep: build install
 
