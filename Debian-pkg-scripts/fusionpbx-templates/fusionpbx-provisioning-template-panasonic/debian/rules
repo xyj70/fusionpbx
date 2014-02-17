@@ -50,7 +50,7 @@ install: build
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-provisioning-template-panasonic/usr/share/nginx/www/fusionpbx/resources/templates/provision
-	cp -pr panasonic debian/fusionpbx-app-provisioning-panasonic/usr/share/nginx/www/fusionpbx/resources/templates/provision
+	cp -pr panasonic debian/fusionpbx-provisioning-template-panasonic/usr/share/nginx/www/fusionpbx/resources/templates/provision
 
 build-indep: build install
 
