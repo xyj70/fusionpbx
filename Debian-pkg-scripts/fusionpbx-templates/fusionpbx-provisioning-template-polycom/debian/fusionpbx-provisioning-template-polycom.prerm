@@ -3,8 +3,8 @@ set -e
 
 case "$1" in
   remove|upgrade|deconfigure)
-    if [ -d /usr/share/nginx/www/fusionpbx/resources/templates/provisioning/aastra ]; then
-      echo "We're about to remove a configured fusionpbx provisioning templates for aastra phones ..." >&2
+    if [ -d /usr/share/nginx/www/fusionpbx/resources/templates/provision/polycom ]; then
+      echo "We're about to remove a configured fusionpbx provisioning templates for polycom phones ..." >&2
     fi
     ;;
   failed-upgrade)
