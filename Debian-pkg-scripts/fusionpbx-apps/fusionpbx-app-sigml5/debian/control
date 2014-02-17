@@ -1,0 +1,12 @@
+Source: fusionpbx-app-sigml5
+Section: user/www
+Priority: extra
+Maintainer: Richard Neese <r.neese@gmail.com>
+Standards-Version: 3.7.2
+#XSBC-Bugtracker: mailto:r.neese@gmail.com
+
+Package: fusionpbx-app-sigml5
+Architecture: all
+Depends: ${misc:Depends}
+Description: Fusionpbx-app-sigml5: 
+#XSBC-Bugtracker: mailto:r.neese@gmail.com
