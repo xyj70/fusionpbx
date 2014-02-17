@@ -82,7 +82,7 @@ do svn export "$svn_src"/fusionpbx/resources/templates/provision/"${i}" "$WRKDIR
 done
 
 #Extra Appss
-for i in sigml5
+for i in sipml5
 do svn export "$svn_src"/apps/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
 done
 
