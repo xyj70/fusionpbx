@@ -78,7 +78,7 @@ done
 
 #phone provisioing templates
 for i in aastra cisco grandstream linksys panasonic polycom snom yealink
-do svn export "$svn_src"/fusionpbx/resources/templates/provision/"${i}" "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-templates-"${i}"/"${i}"
+do svn export "$svn_src"/fusionpbx/resources/templates/provision/"${i}" "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"/"${i}"
 done
 
 #Extra Appss
