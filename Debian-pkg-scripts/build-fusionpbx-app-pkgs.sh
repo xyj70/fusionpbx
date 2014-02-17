@@ -104,16 +104,21 @@ calls-active click-to-call conference-centers conferences conferences-active \
 contacts content destinations devices dialplan dialplan-inbound \
 dialplan-outbound edit exec extensions fax fifo fifo-list follow-me gateways hot-desking \
 ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
-registrations ring-groups schemas services settings sip-profiles sip-status sql-query \
+registrations ring-groups schemas services settings sipml5 sip-profiles sip-status sql-query \
 system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr xmpp
 do cd "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i}" 
+dpkg-buildpackage -rfakeroot -i
+done
+
+for i in aastra cisco grandstream linksys panasonic polycom snom yealink
+do cd "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"
 dpkg-buildpackage -rfakeroot -i
 done
 
 cd "$WRKDIR"
 mkdir -p "$WRKDIR"/debs-fusionpbx-wheezy
 
-for i in "$WRKDIR" "$WRKDIR"/fusionpbx-apps "$WRKDIR"/fusionpbx-themes
+for i in "$WRKDIR" "$WRKDIR"/fusionpbx-apps "$WRKDIR"/fusionpbx-themes "$WRKDIR"/fusionpbx-templates
 do
 mv "${i}"/*.deb "$WRKDIR"/debs-fusionpbx-wheezy
 mv "${i}"/*.changes "$WRKDIR"/debs-fusionpbx-wheezy
