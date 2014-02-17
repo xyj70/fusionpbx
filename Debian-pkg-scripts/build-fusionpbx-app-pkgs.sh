@@ -45,7 +45,7 @@ calls_active click_to_call conference_centers conferences conferences_active \
 contacts content destinations devices dialplan dialplan_inbound \
 dialplan_outbound edit exec extensions fax fifo fifo_list follow_me gateways hot_desking \
 ivr_menu login log_viewer meetings modules music_on_hold park provision recordings \
-registrations ring_groups schemas services settings sigml5 sip_profiles sip_status sql_query \
+registrations ring_groups schemas services settings sipml5 sip_profiles sip_status sql_query \
 system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr xmpp
 do cat > "$WRKDIR"/fusionpbx-apps/fusionpbx-app-${i//_/-}/debian/changelog << DELIM
 fusionpbx-app-${i//_/-} ($PKGVER) stable; urgency=low
