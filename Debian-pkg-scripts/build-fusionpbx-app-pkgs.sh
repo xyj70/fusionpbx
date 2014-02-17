@@ -45,7 +45,7 @@ calls_active click_to_call conference_centers conferences conferences_active \
 contacts content destinations devices dialplan dialplan_inbound \
 dialplan_outbound edit exec extensions fax fifo fifo_list follow_me gateways hot_desking \
 ivr_menu login log_viewer meetings modules music_on_hold park provision recordings \
-registrations ring_groups schemas services settings sip_profiles sip_status sql_query \
+registrations ring_groups schemas services settings sigml5 sip_profiles sip_status sql_query \
 system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr xmpp
 do cat > "$WRKDIR"/fusionpbx-apps/fusionpbx-app-${i//_/-}/debian/changelog << DELIM
 fusionpbx-app-${i//_/-} ($PKGVER) stable; urgency=low
@@ -76,10 +76,20 @@ system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr
 do svn export "$svn_src"/fusionpbx/app/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
 done
 
+#phone provisioing templates
+for i in aastra cisco grandstream linksys panasonic polycom snom yealink
+do svn export "$svn_src"/fusionpbx/resources/templates/provision/"${i}" "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-templates-"${i}"/"${i}"
+done
+
+#Extra Appss
+for i in sigml5
+do svn export "$svn_src"/apps/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
+done
+
 #Build pkgs
 #build core pkg
 cd "$WRKDIR"/fusionpbx-core
-rm -rf app/* themes/*
+rm -rf app/* themes/* resources/templates/provision/*
 dpkg-buildpackage -rfakeroot -i
 
 #build theme pkgs
