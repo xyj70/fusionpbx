@@ -89,7 +89,7 @@ done
 #Build pkgs
 #build core pkg
 cd "$WRKDIR"/fusionpbx-core
-rm -rf app/* themes/* resources/templates/provision/*
+rm -rf app/* themes/* resources/templates/provision
 dpkg-buildpackage -rfakeroot -i
 
 #build theme pkgs
