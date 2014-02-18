@@ -1,1 +1,1 @@
-misc:Depends=fusionpbx-core fusionpbx-app-extensions fusionpbx-app-devices fusionpbx-app-provision
+misc:Depends=fusionpbx-core fusionpbx-app-devices fusionpbx-app-provision
