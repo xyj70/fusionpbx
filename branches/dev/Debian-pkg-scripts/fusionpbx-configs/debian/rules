@@ -9,7 +9,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-APPNAME := fusionpbx-core
+APPNAME := fusionpbx-conf
 
 CFLAGS = -Wall -g
 
@@ -49,15 +49,8 @@ install: build
 	# Add here commands to install the package into debian/lookup.
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
-	mkdir -p debian/fusionpbx-core/etc/fusionpbx/resources/templates/provision
-	mkdir -p debian/fusionpbx-core/usr/share/nginx/www/fusionpbx/app
-	mkdir -p debian/fusionpbx-core/usr/share/nginx/www/fusionpbx/theme
-	mkdir -p debian/fusionpbx-core/usr/share/freeswitch/sounds/en/us/callie/custom
-	mkdir -p debian/fusionpbx-core/var/lib/fusionpbx/db
-	mkdir -p debian/fusionpbx-core/var/lib/fusionpbx/scripts
-	cp -pr core resources secure *.php debian/fusionpbx-core/usr/share/nginx/www/fusionpbx
-	cp -pr resources/install/scripts/* debian/fusionpbx-core/var/lib/fusionpbx/scripts
-	cp -pr resources/install/sounds/en/us/callie/custom/* debian/fusionpbx-core/usr/share/freeswitch/sounds/en/us/callie/custom
+	mkdir -p debian/fusionpbx-conf/usr/share/fusionpbx/templates
+	cp -pr conf debian/fusionpbx-conf/usr/share/fusionpbx/templates
 
 build-indep: build install
 
