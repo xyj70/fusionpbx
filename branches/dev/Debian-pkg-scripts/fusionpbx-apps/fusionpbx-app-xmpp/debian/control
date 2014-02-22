@@ -8,5 +8,5 @@ Standards-Version: 3.7.2
 Package: fusionpbx-app-xmpp
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx:  XMPP used for connecting to gtalk
+Description: Fusionpbx-app-xmpp:  XMPP used for connecting to gtalk
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
