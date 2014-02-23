@@ -29,6 +29,16 @@ fusionpbx-core ($PKGVER) stable; urgency=low
 
 DELIM
 
+#SET Version nmbr in debian/changelog
+cat > "$WRKDIR"/fusionpbx-configs/debian/changelog << DELIM
+fusionpbx-conf ($PKGVER) stable; urgency=low
+
+  * new deb pkg for fusionpbx-conf
+
+ -- Richard Neese <r.neese@gmail.com>  $TIME -0500
+
+DELIM
+
 for i in accessible classic default enhanced nature
 do cat > "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/debian/changelog << DELIM
 fusionpbx-theme-${i} ($PKGVER) stable; urgency=low
@@ -60,6 +70,9 @@ done
 #get src for core
 svn export --force "$svn_src"/fusionpbx "$WRKDIR"/fusionpbx-core
 
+#conf dir src
+svn export --force "$svn_src"/fusionpbx/resourcs/templates/conf "$WRKDIR"/fusionpbx-configs/conf
+
 #get src for theme
 for i in accessible classic default enhanced nature
 do svn export "$svn_src"/fusionpbx/themes/"${i}" "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/"${i}"
@@ -90,6 +103,10 @@ done
 #build core pkg
 cd "$WRKDIR"/fusionpbx-core
 rm -rf app/* themes/* resources/templates/provision
+dpkg-buildpackage -rfakeroot -i
+
+#Build conf pkg
+cd "$WRKDIR"/fusionpbx-configs
 dpkg-buildpackage -rfakeroot -i
 
 #build theme pkgs
