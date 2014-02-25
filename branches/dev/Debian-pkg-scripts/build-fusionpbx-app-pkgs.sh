@@ -105,6 +105,23 @@ cd "$WRKDIR"/fusionpbx-core
 rm -rf app/* themes/* resources/templates/provision
 dpkg-buildpackage -rfakeroot -i
 
+#patch config files
+#remove unused extensions from configs dir
+for i in "$WRKDIR"/fusionpbx-configs/conf/directory/default/*.xml ;do rm "$i" ; done
+for i in "$WRKDIR"/fusionpbx-configs/conf/directory/default/*.noload ;do rm "$i" ; done
+
+#fix sounds dir
+/bin/sed "$WRKDIR"/fusionpbx-configs/conf/autoload_configs/local_stream.conf.xml -i -e s,'<directory name="default" path="$${sounds_dir}/music/8000">','<directory name="default" path="$${sounds_dir}/music/default/8000">',g
+
+#Adding changes to freeswitch profiles
+#Enableing device login auth failures ing the sip profiles.
+sed "$WRKDIR"/fusionpbx-configs/conf/sip_profiles/internal.xml -i -e s,'<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>',g
+
+sed "$WRKDIR"/fusionpbx-configs/conf/sip_profiles/internal.xml -i -e s,'<!-- *<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>', \
+				-e s,'<param name="log-auth-failures" value="false"/> *-->','<param name="log-auth-failures" value="true"/>', \
+				-e s,'<!--<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>', \
+				-e s,'<param name="log-auth-failures" value="false"/>-->','<param name="log-auth-failures" value="true"/>',g
+
 #Build conf pkg
 cd "$WRKDIR"/fusionpbx-configs
 dpkg-buildpackage -rfakeroot -i
