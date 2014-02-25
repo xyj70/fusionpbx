@@ -1,12 +1,12 @@
-Source: fusionpbx-conf
+Source: fusionpbx-sounds
 Section: user/www
 Priority: extra
 Maintainer: Richard Neese <r.neese@gmail.com>
 Standards-Version: 3.7.2
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
 
-Package: fusionpbx-conf
+Package: fusionpbx-sounds
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx-conf: fusionpbx freeswitch config files 
+Description: Fusionpbx-sounds: fusionpbx custome sounds files 
 #XSBC-Bugtracker: mailto:r.neese@gmail.com

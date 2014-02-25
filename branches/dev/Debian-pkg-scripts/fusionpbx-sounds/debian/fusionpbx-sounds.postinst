@@ -4,7 +4,7 @@ set -e
 case "$1" in
   configure)
     for x in \
-      /usr/share/fusionpbx/templates/conf
+      /usr/share/fusionpbx/install/sounds
     do
       chown -R www-data:www-data $x
     done
