@@ -8,5 +8,5 @@ Standards-Version: 3.7.2
 Package: fusionpbx-sounds
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx-sounds: fusionpbx custome sounds files 
+Description: Fusionpbx-sounds: fusionpbx custom sounds files 
 #XSBC-Bugtracker: mailto:r.neese@gmail.com

@@ -89,9 +89,25 @@ fusionpbx-app-${i//_/-} ($PKGVER) stable; urgency=low
 DELIM
 done
 
+#get src for apps
+for i in adminer call_block call_broadcast call_center call_center_active call_flows calls \
+calls_active click_to_call conference_centers conferences conferences_active \
+contacts content destinations devices dialplan dialplan_inbound \
+dialplan_outbound edit exec extensions fax fifo fifo_list follow_me gateways hot_desking \
+ivr_menu login log_viewer meetings modules music_on_hold park provision recordings \
+registrations ring_groups schemas services settings sip_profiles sip_status sql_query \
+system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr xmpp
+do svn export "$svn_src"/fusionpbx/app/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
+done
+
+#Extra Appss
+for i in sipml5
+do svn export "$svn_src"/apps/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
+done
+
 #get src for core
 svn export --force "$svn_src"/fusionpbx "$WRKDIR"/fusionpbx-core
-for in app/* themes/* resources/templates/provision resources/templates/conf resources/install/scripts resources/install/sounds
+for i in app/* themes/* resources/templates/provision resources/templates/conf resources/install/scripts resources/install/sounds
 do rm -rf "$WRKDIR"/fusionpbx-core/"${i}"
 done
 
@@ -109,25 +125,9 @@ for i in accessible classic default enhanced nature
 do svn export "$svn_src"/fusionpbx/themes/"${i}" "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/"${i}"
 done
 
-#get src for apps
-for i in adminer call_block call_broadcast call_center call_center_active call_flows calls \
-calls_active click_to_call conference_centers conferences conferences_active \
-contacts content destinations devices dialplan dialplan_inbound \
-dialplan_outbound edit exec extensions fax fifo fifo_list follow_me gateways hot_desking \
-ivr_menu login log_viewer meetings modules music_on_hold park provision recordings \
-registrations ring_groups schemas services settings sip_profiles sip_status sql_query \
-system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr xmpp
-do svn export "$svn_src"/fusionpbx/app/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
-done
-
 #phone provisioing templates
 for i in aastra cisco grandstream linksys panasonic polycom snom yealink
 do svn export "$svn_src"/fusionpbx/resources/templates/provision/"${i}" "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"/"${i}"
-done
-
-#Extra Appss
-for i in sipml5
-do svn export "$svn_src"/apps/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
 done
 
 #Build pkgs
