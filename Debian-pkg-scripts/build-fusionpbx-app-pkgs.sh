@@ -165,7 +165,7 @@ sed "$WRKDIR"/fusionpbx-configs/conf/sip_profiles/internal.xml -i -e s,'<!-- *<p
 				-e s,'<param name="log-auth-failures" value="false"/>-->','<param name="log-auth-failures" value="true"/>',g
 
 #Build conf pkg
-cd "$WRKDIR"/fusionpbx-configs
+cd "$WRKDIR"/fusionpbx-conf
 dpkg-buildpackage -rfakeroot -i
 
 #Build provision pkg
