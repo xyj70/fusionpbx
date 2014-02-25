@@ -30,7 +30,7 @@ fusionpbx-core ($PKGVER) stable; urgency=low
 DELIM
 
 #SET Version nmbr in debian/changelog
-cat > "$WRKDIR"/fusionpbx-configs/debian/changelog << DELIM
+cat > "$WRKDIR"/fusionpbx-conf/debian/changelog << DELIM
 fusionpbx-conf ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-conf
@@ -38,6 +38,28 @@ fusionpbx-conf ($PKGVER) stable; urgency=low
  -- Richard Neese <r.neese@gmail.com>  $TIME -0500
 
 DELIM
+
+#SET Version nmbr in debian/changelog
+cat > "$WRKDIR"/fusionpbx-scripts/debian/changelog << DELIM
+fusionpbx-conf ($PKGVER) stable; urgency=low
+
+  * new deb pkg for fusionpbx-scripts
+
+ -- Richard Neese <r.neese@gmail.com>  $TIME -0500
+
+DELIM
+
+
+#SET Version nmbr in debian/changelog
+cat > "$WRKDIR"/fusionpbx-sounds/debian/changelog << DELIM
+fusionpbx-conf ($PKGVER) stable; urgency=low
+
+  * new deb pkg for fusionpbx-sounds
+
+ -- Richard Neese <r.neese@gmail.com>  $TIME -0500
+
+DELIM
+
 
 for i in accessible classic default enhanced nature
 do cat > "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/debian/changelog << DELIM
@@ -71,7 +93,13 @@ done
 svn export --force "$svn_src"/fusionpbx "$WRKDIR"/fusionpbx-core
 
 #conf dir src
-svn export --force "$svn_src"/fusionpbx/resourcs/templates/conf "$WRKDIR"/fusionpbx-configs/conf
+svn export --force "$svn_src"/fusionpbx/resources/templates/conf "$WRKDIR"/fusionpbx-conf/conf
+
+#scripts dir src
+svn export --force "$svn_src"/fusionpbx/resources/install/scripts "$WRKDIR"/fusionpbx-scripts/scripts
+
+#sounds dir src
+svn export --force "$svn_src"/fusionpbx/resources/install/sounds "$WRKDIR"/fusionpbx-sounds/sounds
 
 #get src for theme
 for i in accessible classic default enhanced nature
@@ -102,16 +130,16 @@ done
 #Build pkgs
 #build core pkg
 cd "$WRKDIR"/fusionpbx-core
-rm -rf app/* themes/* resources/templates/provision
+rm -rf app/* themes/* resources/templates/provision resources/templates/conf resources/install/scripts resources/install/sounds
 dpkg-buildpackage -rfakeroot -i
 
 #patch config files
 #remove unused extensions from configs dir
-for i in "$WRKDIR"/fusionpbx-configs/conf/directory/default/*.xml ;do rm "$i" ; done
-for i in "$WRKDIR"/fusionpbx-configs/conf/directory/default/*.noload ;do rm "$i" ; done
+for i in "$WRKDIR"/fusionpbx-conf/conf/directory/default/*.xml ;do rm "$i" ; done
+for i in "$WRKDIR"/fusionpbx-conf/conf/directory/default/*.noload ;do rm "$i" ; done
 
 #fix sounds dir
-/bin/sed "$WRKDIR"/fusionpbx-configs/conf/autoload_configs/local_stream.conf.xml -i -e s,'<directory name="default" path="$${sounds_dir}/music/8000">','<directory name="default" path="$${sounds_dir}/music/default/8000">',g
+/bin/sed "$WRKDIR"/fusionpbx-conf/conf/autoload_configs/local_stream.conf.xml -i -e s,'<directory name="default" path="$${sounds_dir}/music/8000">','<directory name="default" path="$${sounds_dir}/music/default/8000">',g
 
 #Adding changes to freeswitch profiles
 #Enableing device login auth failures ing the sip profiles.
@@ -124,6 +152,14 @@ sed "$WRKDIR"/fusionpbx-configs/conf/sip_profiles/internal.xml -i -e s,'<!-- *<p
 
 #Build conf pkg
 cd "$WRKDIR"/fusionpbx-configs
+dpkg-buildpackage -rfakeroot -i
+
+#Build conf pkg
+cd "$WRKDIR"/fusionpbx-scripts
+dpkg-buildpackage -rfakeroot -i
+
+#Build conf pkg
+cd "$WRKDIR"/fusionpbx-sounds
 dpkg-buildpackage -rfakeroot -i
 
 #build theme pkgs

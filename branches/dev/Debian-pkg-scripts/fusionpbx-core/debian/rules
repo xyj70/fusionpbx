@@ -52,12 +52,8 @@ install: build
 	mkdir -p debian/fusionpbx-core/etc/fusionpbx/resources/templates/provision
 	mkdir -p debian/fusionpbx-core/usr/share/nginx/www/fusionpbx/app
 	mkdir -p debian/fusionpbx-core/usr/share/nginx/www/fusionpbx/theme
-	mkdir -p debian/fusionpbx-core/usr/share/freeswitch/sounds/en/us/callie/custom
 	mkdir -p debian/fusionpbx-core/var/lib/fusionpbx/db
-	mkdir -p debian/fusionpbx-core/var/lib/fusionpbx/scripts
 	cp -pr core resources secure *.php debian/fusionpbx-core/usr/share/nginx/www/fusionpbx
-	cp -pr resources/install/scripts/* debian/fusionpbx-core/var/lib/fusionpbx/scripts
-	cp -pr resources/install/sounds/en/us/callie/custom/* debian/fusionpbx-core/usr/share/freeswitch/sounds/en/us/callie/custom
 
 build-indep: build install
 
