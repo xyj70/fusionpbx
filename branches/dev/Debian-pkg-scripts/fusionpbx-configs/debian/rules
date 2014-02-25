@@ -9,7 +9,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-APPNAME := fusionpbx-configs
+APPNAME := fusionpbx-conf
 
 CFLAGS = -Wall -g
 
@@ -49,8 +49,8 @@ install: build
 	# Add here commands to install the package into debian/lookup.
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
-	mkdir -p debian/fusionpbx-configs/usr/share/fusionpbx/templates
-	cp -pr conf debian/fusionpbx-configs/usr/share/fusionpbx/templates
+	mkdir -p debian/fusionpbx-conf/usr/share/fusionpbx/templates
+	cp -pr conf debian/fusionpbx-conf/usr/share/fusionpbx/templates
 
 build-indep: build install
 
