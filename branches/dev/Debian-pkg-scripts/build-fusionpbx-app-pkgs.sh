@@ -157,9 +157,9 @@ for i in "$WRKDIR"/fusionpbx-conf/conf/directory/default/*.noload ;do rm "$i" ; 
 
 #Adding changes to freeswitch profiles
 #Enableing device login auth failures ing the sip profiles.
-sed "$WRKDIR"/fusionpbx-configs/conf/sip_profiles/internal.xml -i -e s,'<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>',g
+sed "$WRKDIR"/fusionpbx-conf/conf/sip_profiles/internal.xml -i -e s,'<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>',g
 
-sed "$WRKDIR"/fusionpbx-configs/conf/sip_profiles/internal.xml -i -e s,'<!-- *<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>', \
+sed "$WRKDIR"/fusionpbx-conf/conf/sip_profiles/internal.xml -i -e s,'<!-- *<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>', \
 				-e s,'<param name="log-auth-failures" value="false"/> *-->','<param name="log-auth-failures" value="true"/>', \
 				-e s,'<!--<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>', \
 				-e s,'<param name="log-auth-failures" value="false"/>-->','<param name="log-auth-failures" value="true"/>',g
