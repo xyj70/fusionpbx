@@ -41,7 +41,7 @@ DELIM
 
 #SET Version nmbr in debian/changelog
 cat > "$WRKDIR"/fusionpbx-scripts/debian/changelog << DELIM
-fusionpbx-conf ($PKGVER) stable; urgency=low
+fusionpbx-scripts ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-scripts
 
@@ -52,7 +52,7 @@ DELIM
 
 #SET Version nmbr in debian/changelog
 cat > "$WRKDIR"/fusionpbx-sounds/debian/changelog << DELIM
-fusionpbx-conf ($PKGVER) stable; urgency=low
+fusionpbx-sounds ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-sounds
 
