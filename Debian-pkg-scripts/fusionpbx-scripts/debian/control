@@ -1,12 +1,12 @@
-Source: fusionpbx-conf
+Source: fusionpbx-scripts
 Section: user/www
 Priority: extra
 Maintainer: Richard Neese <r.neese@gmail.com>
 Standards-Version: 3.7.2
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
 
-Package: fusionpbx-conf
+Package: fusionpbx-scripts
 Architecture: all
 Depends: ${misc:Depends}
-Description: Fusionpbx-conf: fusionpbx freeswitch config files 
+Description: Fusionpbx-scripts: fusionpbx lua/php/perl/els script files 
 #XSBC-Bugtracker: mailto:r.neese@gmail.com
