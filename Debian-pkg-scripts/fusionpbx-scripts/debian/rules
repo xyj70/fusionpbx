@@ -49,8 +49,8 @@ install: build
 	# Add here commands to install the package into debian/lookup.
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
-	mkdir -p debian/fusionpbx-scripts/usr/share/fusionpbx/install/scripts
-	cp -pr scripts debian/fusionpbx-conf/usr/share/fusionpbx/install/scripts
+	mkdir -p debian/fusionpbx-scripts/usr/share/fusionpbx/resourcesinstall/scripts
+	cp -pr scripts debian/fusionpbx-scripts/usr/share/fusionpbx/resources/install/scripts
 
 build-indep: build install
 
