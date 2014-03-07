@@ -101,7 +101,7 @@ do svn export "$svn_src"/fusionpbx/app/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx
 done
 
 #Extra Appss
-for i in sipml5
+for i in sipml5 hunt_groups 
 do svn export "$svn_src"/apps/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
 done
 
@@ -136,7 +136,7 @@ for i in adminer call-block call-broadcast call-center call-center-active call-f
 calls-active click-to-call conference-centers conferences conferences-active \
 contacts content destinations devices dialplan dialplan-inbound \
 dialplan-outbound edit exec extensions fax fifo fifo-list follow-me gateways hot-desking \
-ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
+hunt-groups ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
 registrations ring-groups schemas services settings sipml5 sip-profiles sip-status sql-query \
 system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr xmpp
 do cd "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i}" 
