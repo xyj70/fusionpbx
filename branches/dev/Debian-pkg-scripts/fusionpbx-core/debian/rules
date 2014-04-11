@@ -51,7 +51,7 @@ install: build
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-core/etc/fusionpbx/resources/templates/provision
 	mkdir -p debian/fusionpbx-core/usr/share/nginx/www/fusionpbx/app
-	mkdir -p debian/fusionpbx-core/usr/share/nginx/www/fusionpbx/theme
+	mkdir -p debian/fusionpbx-core/usr/share/nginx/www/fusionpbx/themes
 	mkdir -p debian/fusionpbx-core/var/lib/fusionpbx/db
 	cp -pr core resources secure *.php debian/fusionpbx-core/usr/share/nginx/www/fusionpbx
 
