@@ -51,7 +51,8 @@ install: build
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-scripts/usr/share/fusionpbx/resources/install
 	cp -pr scripts debian/fusionpbx-scripts/usr/share/fusionpbx/resources/install
-
+	mkdir -p debian/fusionpbx-core/var/lib/fusionpbx/scripts
+	
 build-indep: build install
 
 # Build architecture-independent files here.
