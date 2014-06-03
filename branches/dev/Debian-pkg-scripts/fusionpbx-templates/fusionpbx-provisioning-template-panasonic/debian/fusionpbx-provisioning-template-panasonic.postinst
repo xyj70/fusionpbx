@@ -4,7 +4,7 @@ set -e
 case "$1" in
   configure)
     for x in \
-      /usr/share/fusionpbx/templates/provision/panasonic
+      /usr/share/fusionpbx/resources/templates/provision/panasonic
     do
       chown -R www-data:www-data $x
     done
