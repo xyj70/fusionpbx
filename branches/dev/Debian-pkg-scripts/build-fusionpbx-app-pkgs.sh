@@ -60,6 +60,15 @@ fusionpbx-sounds ($PKGVER) stable; urgency=low
 
 DELIM
 
+#SET Version nmbr in debian/changelog
+cat > "$WRKDIR"/fusionpbx-sqldb/debian/changelog << DELIM
+fusionpbx-sqldb ($PKGVER) stable; urgency=low
+
+  * new deb pkg for fusionpbx-sqldb
+
+ -- Richard Neese <r.neese@gmail.com>  $TIME -0500
+
+DELIM
 
 #SET Version nmbr in debian/changelog
 for i in aastra cisco grandstream linksys panasonic polycom snom yealink
@@ -132,32 +141,18 @@ svn export --force "$svn_src"/fusionpbx/resources/install/scripts "$WRKDIR"/fusi
 #sounds dir src
 svn export --force "$svn_src"/fusionpbx/resources/install/sounds "$WRKDIR"/fusionpbx-sounds/sounds
 
-#get src for theme
-for i in accessible classic default enhanced nature
-do svn export "$svn_src"/fusionpbx/themes/"${i}" "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/"${i}"
-done
+#scripts dir src
+svn export --force "$svn_src"/fusionpbx/resources/install/sql "$WRKDIR"/fusionpbx-sqldb/sql
 
 #phone provisioing templates
 for i in aastra cisco grandstream linksys panasonic polycom snom yealink
 do svn export "$svn_src"/fusionpbx/resources/templates/provision/"${i}" "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"/"${i}"
 done
 
-#Build pkgs
-#build app pkgs
-for i in adminer call-block call-broadcast call-center call-center-active call-flows calls \
-calls-active click-to-call conference-centers conferences conferences-active \
-contacts content destinations devices dialplan dialplan-inbound \
-dialplan-outbound edit exec extensions fax fifo fifo-list follow-me gateways hot-desking \
-ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
-registrations ring-groups schemas services settings sipml5 sip-profiles sip-status sql-query \
-system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr xmpp
-do cd "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i}" 
-dpkg-buildpackage -rfakeroot -i
+#get src for theme
+for i in accessible classic default enhanced nature
+do svn export "$svn_src"/fusionpbx/themes/"${i}" "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/"${i}"
 done
-
-#build core pkg
-cd "$WRKDIR"/fusionpbx-core
-dpkg-buildpackage -rfakeroot -i
 
 #patch config files
 #remove unused extensions from configs dir
@@ -176,15 +171,26 @@ sed "$WRKDIR"/fusionpbx-conf/conf/sip_profiles/internal.xml -i -e s,'<!-- *<para
 				-e s,'<!--<param name="log-auth-failures" value="false"/>','<param name="log-auth-failures" value="true"/>', \
 				-e s,'<param name="log-auth-failures" value="false"/>-->','<param name="log-auth-failures" value="true"/>',g
 
+#Build pkgs
+#build app pkgs
+for i in adminer call-block call-broadcast call-center call-center-active call-flows calls \
+calls-active click-to-call conference-centers conferences conferences-active contacts content \
+destinations devices dialplan dialplan-inbound dialplan-outbound edit exec extensions fax fifo \
+fifo-list follow-me gateways hot-desking ivr-menu login log-viewer meetings modules music-on-hold \
+park provision recordings registrations ring-groups schemas services settings sipml5 sip-profiles \
+sip-status sql-query system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr \
+xmpp
+do cd "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i}" 
+dpkg-buildpackage -rfakeroot -i
+done
+
+#build core pkg
+cd "$WRKDIR"/fusionpbx-core
+dpkg-buildpackage -rfakeroot -i
+
 #Build conf pkg
 cd "$WRKDIR"/fusionpbx-conf
 dpkg-buildpackage -rfakeroot -i
-
-#Build provision pkg
-for i in aastra cisco grandstream linksys panasonic polycom snom yealink
-do cd "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"
-dpkg-buildpackage -rfakeroot -i
-done
 
 #Build scripts pkg
 cd "$WRKDIR"/fusionpbx-scripts
@@ -193,6 +199,16 @@ dpkg-buildpackage -rfakeroot -i
 #Build sounds pkg
 cd "$WRKDIR"/fusionpbx-sounds
 dpkg-buildpackage -rfakeroot -i
+
+#Build sounds pkg
+cd "$WRKDIR"/fusionpbx-sqldb
+dpkg-buildpackage -rfakeroot -i
+
+#Build provision pkg
+for i in aastra cisco grandstream linksys panasonic polycom snom yealink
+do cd "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"
+dpkg-buildpackage -rfakeroot -i
+done
 
 #build theme pkgs
 for i in accessible classic default enhanced nature
