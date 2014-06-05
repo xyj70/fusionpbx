@@ -63,7 +63,7 @@ DELIM
 
 #SET Version nmbr in debian/changelog
 for i in aastra cisco grandstream linksys panasonic polycom snom yealink
-do cat > "$WRKDIR"/fusionpbx-template/fusionpbx-provisioning-template-"${i}"/debian/changelog << DELIM
+do cat > "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"/debian/changelog << DELIM
 fusionpbx-provisioning-template-${i} ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-provisioning-template-${i//_/-}
