@@ -1,5 +1,5 @@
 #!/bin/bash
-PKGVER=3.5-1 # this is the version number you update
+PKGVER=3.5-87 # this is the version number you update
 TIME=$(date +"%a, %d %b %Y %X")
 STABLE=/usr/home/repo/deb/debian
 DEVEL=/usr/home/repo/deb-dev/debian
@@ -61,6 +61,18 @@ fusionpbx-sounds ($PKGVER) stable; urgency=low
 DELIM
 
 
+#SET Version nmbr in debian/changelog
+for i in aastra cisco grandstream linksys panasonic polycom snom yealink
+do cat > "$WRKDIR"/fusionpbx-template/fusionpbx-provisioning-template-"${i}"/debian/changelog << DELIM
+fusionpbx-provisioning-template-${i} ($PKGVER) stable; urgency=low
+
+  * new deb pkg for fusionpbx-provisioning-template-${i//_/-}
+
+ -- Richard Neese <r.neese@gmail.com>  $TIME -0500
+
+DELIM
+done
+
 for i in accessible classic default enhanced nature
 do cat > "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/debian/changelog << DELIM
 fusionpbx-theme-${i} ($PKGVER) stable; urgency=low
@@ -101,7 +113,7 @@ do svn export "$svn_src"/fusionpbx/app/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx
 done
 
 #Extra Appss
-for i in sipml5 hunt_groups 
+for i in sipml5
 do svn export "$svn_src"/apps/"${i}" "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
 done
 
@@ -136,7 +148,7 @@ for i in adminer call-block call-broadcast call-center call-center-active call-f
 calls-active click-to-call conference-centers conferences conferences-active \
 contacts content destinations devices dialplan dialplan-inbound \
 dialplan-outbound edit exec extensions fax fifo fifo-list follow-me gateways hot-desking \
-hunt-groups ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
+ivr-menu login log-viewer meetings modules music-on-hold park provision recordings \
 registrations ring-groups schemas services settings sipml5 sip-profiles sip-status sql-query \
 system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr xmpp
 do cd "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i}" 
