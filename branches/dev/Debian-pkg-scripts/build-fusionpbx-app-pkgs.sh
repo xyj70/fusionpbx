@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Thur June 5, 2014 Time: 10:00 CST
+# Thur June 6, 2014 Time: 07:30 CST
 
 # Select if to build stable/devel pkgs
 BUILD_STABLE_PKGS="n"
@@ -27,7 +27,7 @@ rm -rf /usr/src/fusionpbx-pkgs-build
 svn export http://fusionpbx.googlecode.com/svn/branches/dev/Debian-pkg-scripts "$WRKDIR"
 
 ##set version in the changelog files for core
-cat > "$WRKDIR"/fusionpbx-core/debian/changelog << DELIM
+cat > $WRKDIR/fusionpbx-core/debian/changelog << DELIM
 fusionpbx-core ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-core
@@ -37,7 +37,7 @@ fusionpbx-core ($PKGVER) stable; urgency=low
 DELIM
 
 ##set version in the changelog files for conf files
-cat > "$WRKDIR"/fusionpbx-conf/debian/changelog << DELIM
+cat > $WRKDIR/fusionpbx-conf/debian/changelog << DELIM
 fusionpbx-conf ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-conf
@@ -47,7 +47,7 @@ fusionpbx-conf ($PKGVER) stable; urgency=low
 DELIM
 
 ##set version in the changelog files for scripts
-cat > "$WRKDIR"/fusionpbx-scripts/debian/changelog << DELIM
+cat > $WRKDIR/fusionpbx-scripts/debian/changelog << DELIM
 fusionpbx-scripts ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-scripts
@@ -58,7 +58,7 @@ DELIM
 
 
 ##set version in the changelog files for sounds 
-cat > "$WRKDIR"/fusionpbx-sounds/debian/changelog << DELIM
+cat > $WRKDIR/fusionpbx-sounds/debian/changelog << DELIM
 fusionpbx-sounds ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-sounds
@@ -68,7 +68,7 @@ fusionpbx-sounds ($PKGVER) stable; urgency=low
 DELIM
 
 ##set version in the changelog files for sqldb 
-cat > "$WRKDIR"/fusionpbx-sql/debian/changelog << DELIM
+cat > $WRKDIR/fusionpbx-sql/debian/changelog << DELIM
 fusionpbx-sqldb ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-sqldb
@@ -79,7 +79,7 @@ DELIM
 
 ##set version in the changelog files for provisioing templates
 for i in aastra cisco grandstream linksys panasonic polycom snom yealink
-do cat > "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"/debian/changelog << DELIM
+do cat > $WRKDIR/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"/debian/changelog << DELIM
 fusionpbx-provisioning-template-${i} ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-provisioning-template-"${i//_/-}"
@@ -91,7 +91,7 @@ done
 
 #set version in the changelog files for themes
 for i in accessible classic default enhanced nature
-do cat > "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/debian/changelog << DELIM
+do cat > $WRKDIR/fusionpbx-themes/fusionpbx-theme-"${i}"/debian/changelog << DELIM
 fusionpbx-theme-${i} ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-theme-"${i//_/-}"
@@ -109,7 +109,7 @@ for i in adminer call_block call_broadcast call_center call_center_active call_f
 	park provision recordings registrations ring_groups schemas services settings sipml5 sip_profiles \
 	sip_status sql_query system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr \
 	xmpp
-	do cat > "$WRKDIR"/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/debian/changelog << DELIM
+	do cat > $WRKDIR/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/debian/changelog << DELIM
 fusionpbx-app-${i//_/-} ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-app-"${i//_/-}"
@@ -238,10 +238,10 @@ done
 
 cp -rp "$WRKDIR"/debs-fusionpbx-wheezy/* "$REPO"/incoming
 
-cd "$REPO" && ./import-new-pkgs.sh
+#cd "$REPO" && ./import-new-pkgs.sh
 
-cd "$WRKDIR"
+#cd "$WRKDIR"
 
-rm /home/repo/FreeBSD/*.gz
+#rm /home/repo/FreeBSD/*.gz
 
-cp debs-fusionpbx-wheezy/*.tar.gz /home/repo/FreeBSD
+#cp debs-fusionpbx-wheezy/*.tar.gz /home/repo/FreeBSD
