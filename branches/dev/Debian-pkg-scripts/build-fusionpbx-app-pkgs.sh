@@ -137,7 +137,7 @@ done
 
 #get src for core
 svn export --force "$SVN_SRC"/fusionpbx "$WRKDIR"/fusionpbx-core
-for i in app/* themes/* resources/templates/provision resources/templates/conf resources/install
+for i in app/* themes/* resources/templates/provision resources/templates/conf resources/install/sounds resources/install/scripts resources/install/sql
 do rm -rf "$WRKDIR"/fusionpbx-core/"${i}"
 done
 
