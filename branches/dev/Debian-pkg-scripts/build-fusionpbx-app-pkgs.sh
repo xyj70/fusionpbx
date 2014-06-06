@@ -80,7 +80,7 @@ DELIM
 ##set version in the changelog files for provisioing templates
 for i in aastra cisco grandstream linksys panasonic polycom snom yealink
 do cat > "$WRKDIR"/fusionpbx-templates/fusionpbx-provisioning-template-"${i}"/debian/changelog << DELIM
-fusionpbx-provisioning-template-"${i}" ($PKGVER) stable; urgency=low
+fusionpbx-provisioning-template-${i} ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-provisioning-template-"${i//_/-}"
 
