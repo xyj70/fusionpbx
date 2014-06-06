@@ -201,7 +201,7 @@ cd "$WRKDIR"/fusionpbx-sounds
 dpkg-buildpackage -rfakeroot -i
 
 #Build sounds pkg
-cd "$WRKDIR"/fusionpbx-sqldb
+cd "$WRKDIR"/fusionpbx-sql
 dpkg-buildpackage -rfakeroot -i
 
 #Build provision pkg
@@ -230,3 +230,9 @@ done
 cp -rp "$WRKDIR"/debs-fusionpbx-wheezy/* "$REPO"/incoming
 
 cd "$REPO" && ./import-new-pkgs.sh
+
+cd "$WRKDIR"
+
+rm /home/repo/FreeBSD/*.gz
+
+cp debs-fusionpbx-wheezy/*.tar.gz /home/repo/FreeBSD
