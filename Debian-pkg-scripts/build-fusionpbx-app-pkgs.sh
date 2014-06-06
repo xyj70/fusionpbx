@@ -128,7 +128,7 @@ done
 
 #get src for core
 svn export --force "$svn_src"/fusionpbx "$WRKDIR"/fusionpbx-core
-for i in app/* themes/* resources/templates/provision resources/templates/conf resources/install/scripts resources/install/sounds
+for i in app/* themes/* resources/templates/provision resources/templates/conf resources/install
 do rm -rf "$WRKDIR"/fusionpbx-core/"${i}"
 done
 
@@ -142,7 +142,7 @@ svn export --force "$svn_src"/fusionpbx/resources/install/scripts "$WRKDIR"/fusi
 svn export --force "$svn_src"/fusionpbx/resources/install/sounds "$WRKDIR"/fusionpbx-sounds/sounds
 
 #scripts dir src
-svn export --force "$svn_src"/fusionpbx/resources/install/sql "$WRKDIR"/fusionpbx-sqldb/sql
+svn export --force "$svn_src"/fusionpbx/resources/install/sql "$WRKDIR"/fusionpbx-sql/sql
 
 #phone provisioing templates
 for i in aastra cisco grandstream linksys panasonic polycom snom yealink
