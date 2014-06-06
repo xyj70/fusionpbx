@@ -61,7 +61,7 @@ fusionpbx-sounds ($PKGVER) stable; urgency=low
 DELIM
 
 #SET Version nmbr in debian/changelog
-cat > "$WRKDIR"/fusionpbx-sqldb/debian/changelog << DELIM
+cat > "$WRKDIR"/fusionpbx-sql/debian/changelog << DELIM
 fusionpbx-sqldb ($PKGVER) stable; urgency=low
 
   * new deb pkg for fusionpbx-sqldb
