@@ -90,7 +90,7 @@ DELIM
 done
 
 #set version in the changelog files for themes
-for i in accessible classic default enhanced nature
+for i in enhanced
 do cat > $WRKDIR/fusionpbx-themes/fusionpbx-theme-"${i}"/debian/changelog << DELIM
 fusionpbx-theme-${i} ($PKGVER) stable; urgency=low
 
@@ -159,7 +159,7 @@ do svn export "$SVN_SRC"/fusionpbx/resources/templates/provision/"${i}" "$WRKDIR
 done
 
 #get src for theme
-for i in accessible classic default enhanced nature
+for i in enhanced
 do svn export "$SVN_SRC"/fusionpbx/themes/"${i}" "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"/"${i}"
 done
 
@@ -220,7 +220,7 @@ dpkg-buildpackage -rfakeroot -i
 done
 
 #build theme pkgs
-for i in accessible classic default enhanced nature
+for i in enhanced
 do cd "$WRKDIR"/fusionpbx-themes/fusionpbx-theme-"${i}"
 dpkg-buildpackage -rfakeroot -i
 done
@@ -238,7 +238,7 @@ done
 
 cp -rp "$WRKDIR"/debs-fusionpbx-wheezy/* "$REPO"/incoming
 
-#cd "$REPO" && ./import-new-pkgs.sh
+cd "$REPO" && ./import-new-pkgs.sh
 
 #cd "$WRKDIR"
 
