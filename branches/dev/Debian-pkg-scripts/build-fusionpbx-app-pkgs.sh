@@ -102,7 +102,7 @@ DELIM
 done
 
 #set version in the changelog files for apps
-for i in adminer call_block call_broadcast call_center call_center_active call_flows calls \
+for i in adminer backup call_block call_broadcast call_center call_center_active call_flows calls \
 	calls_active click_to_call conference_centers conferences conferences_active contacts content \
 	destinations devices dialplan dialplan_inbound dialplan_outbound edit exec extensions fax fifo \
 	fifo_list follow_me gateways hot_desking ivr_menu login log_viewer meetings modules music_on_hold \
@@ -120,7 +120,7 @@ DELIM
 done
 
 #get src for apps
-for i in adminer call_block call_broadcast call_center call_center_active call_flows calls \
+for i in adminer backup call_block call_broadcast call_center call_center_active call_flows calls \
 	calls_active click_to_call conference_centers conferences conferences_active contacts content \
 	destinations devices dialplan dialplan_inbound dialplan_outbound edit exec extensions fax fifo \
 	fifo_list follow_me gateways hot_desking ivr_menu login log_viewer meetings modules music_on_hold \
@@ -182,7 +182,7 @@ sed "$WRKDIR"/fusionpbx-conf/conf/sip_profiles/internal.xml -i -e s,'<!-- *<para
 
 #Build pkgs
 #build app pkgs
-for i in adminer call-block call-broadcast call-center call-center-active call-flows calls \
+for i in adminer backup call-block call-broadcast call-center call-center-active call-flows calls \
 calls-active click-to-call conference-centers conferences conferences-active contacts content \
 destinations devices dialplan dialplan-inbound dialplan-outbound edit exec extensions fax fifo \
 fifo-list follow-me gateways hot-desking ivr-menu login log-viewer meetings modules music-on-hold \
