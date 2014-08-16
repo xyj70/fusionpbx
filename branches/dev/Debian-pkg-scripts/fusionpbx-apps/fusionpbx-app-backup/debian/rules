@@ -9,7 +9,7 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-APPNAME := fusionpbx-app-adminer
+APPNAME := fusionpbx-app-backup
 
 CFLAGS = -Wall -g
 
@@ -50,7 +50,7 @@ install: build
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-app-adminer/usr/share/nginx/www/fusionpbx/app
-	cp -pr adminer debian/fusionpbx-app-adminer/usr/share/nginx/www/fusionpbx/app
+	cp -pr backup debian/fusionpbx-app-adminer/usr/share/nginx/www/fusionpbx/app
 
 build-indep: build install
 
