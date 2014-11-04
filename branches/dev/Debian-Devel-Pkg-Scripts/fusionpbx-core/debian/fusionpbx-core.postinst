@@ -9,7 +9,6 @@ case "$1" in
     do
       chown -R www-data:www-data $w
     done
-    ;;
     for x in \
       /var/lib/fusionpbx \
       /var/lib/fusionpbx/db \
@@ -18,10 +17,9 @@ case "$1" in
     do
       chown www-data:www-data $x
     done
-    ;;
     for y in \
-      /var/www/fusionpbx/storage/voicemail \
-      /var/www/fusionpbx/recordings;
+      /var/lib/fusionpbx/storage/voicemail \
+      /var/lib/fusionpbx/recordings;
     do
       chown www-data:freewsitch $y
     done
