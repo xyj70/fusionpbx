@@ -21,7 +21,7 @@ case "$1" in
       /var/lib/fusionpbx/storage/voicemail \
       /var/lib/fusionpbx/recordings;
     do
-      chown www-data:freewsitch $y
+      chown www-data:freeswitch $y
     done
     ;;
   abort-upgrade|abort-remove|abort-deconfigure)
