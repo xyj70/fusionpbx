@@ -3,7 +3,7 @@ set -e
 
 case "$1" in
   install|upgrade)
-    if [ -d /var/www/fusionpbx ]; then
+    if [ -d /var/www/fusionpbx/core ]; then
       echo "It looks like you have FusionPBX-core installed ." >&2
     fi
     ;;
