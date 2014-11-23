@@ -171,7 +171,7 @@ for i in "$WRK_DIR"/fusionpbx-conf/conf/directory/default/*.xml ;do rm "$i" ; do
 for i in "$WRK_DIR"/fusionpbx-conf/conf/directory/default/*.noload ;do rm "$i" ; done
 
 #fix sounds dir
-/bin/sed "$WRK_DIR"/fusionpbx-conf/conf/autoload_configs/local_stream.conf.xml -i -e s,'<directory name="default" path="$${sounds_dir}/music/8000">','<directory name="default" path="$${sounds_dir}/music/default/8000">',g
+/bin/sed "$WRK_DIR"/fusionpbx-conf/conf/autoload_configs/local_stream.conf.xml -i -e s,'<directory name="default" path="$${sounds_dir}/music/8000">','<directory name="default" path="$${sounds_dir}/music/fusionpbx/8000">',g
 
 #Adding changes to freeswitch profiles
 #Enableing device login auth failures ing the sip profiles.
