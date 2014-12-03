@@ -1,3 +1,0 @@
-version=3
-opts="filenamemangle=s/48000-//" \
-  http://files.fusionpbx.org/fusionpbx-sounds-music-48000-(.*)\.tar\.gz
