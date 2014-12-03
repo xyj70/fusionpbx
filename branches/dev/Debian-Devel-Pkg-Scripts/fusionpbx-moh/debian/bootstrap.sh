@@ -92,7 +92,7 @@ Priority: optional
 Maintainer: Richard Neese <r.neese@gmail.com>
 Build-Depends: debhelper (>= 8.0.0), sox, flac
 Standards-Version: 3.9.3
-Homepage: http://files.fusionpbx.com/
+Homepage: http://repo.fusionpbx.com/music/
 
 Package: $base-$sound
 $(wrap "Provides: $(fmt_provides)")

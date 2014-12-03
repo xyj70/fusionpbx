@@ -8,8 +8,6 @@ rm -rf /usr/src/debs-fusionpbx-moh
 
 svn co http://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/fusionpbx-moh /usr/src/fusionpbx-moh
 
-/bin/sed -i /usr/src/fusionpbx-moh/debian/fusionpbx-music-default.changelog -e s,unstable,stable,
-
 cd  /usr/src/fusionpbx-moh
 time ./debian/bootstrap.sh -p fusionpbx-music-default
 time ./debian/rules get-orig-source
@@ -29,5 +27,5 @@ cp -rp "$WORKDIR"/debs-fusionpbx-moh/* "$REPO1"/incoming
 cp -rp "$WORKDIR"/debs-fusionpbx-moh/* "$REPO2"/incoming
 
 cd "$REPO1" && ./import-stable-pkgs.sh
-cd "$REPO3" && ./import-head-pkgs.sh
+cd "$REPO2" && ./import-head-pkgs.sh
 
