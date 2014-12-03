@@ -1,6 +1,6 @@
 #!/bin/bash
 ##### -*- mode:shell-script; indent-tabs-mode:nil; sh-basic-offset:2 -*-
-##### Author: Richard Neese <r.neese@gmail.com>
+##### Author: Richard Neese <r.neese@gmail.com> Wed, 03 Dec 2014 12:41:00 -0600
 
 #### directory independence
 
