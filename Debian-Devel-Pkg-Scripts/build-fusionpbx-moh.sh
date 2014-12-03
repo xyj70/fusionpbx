@@ -6,8 +6,7 @@ REPO2="/usr/home/repo/head/debian"
 rm -rf /usr/src/fusionpbx-moh
 rm -rf /usr/src/debs-fusionpbx-moh
 
-git clone https://github.com/traviscross/fusionpbx-sounds.git /usr/src/fusionpbx-moh
-svn co 
+svn co http://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/fusionpbx-moh /usr/src/fusionpbx-moh
 
 /bin/sed -i /usr/src/fusionpbx-moh/debian/fusionpbx-music-default.changelog -e s,unstable,stable,
 
