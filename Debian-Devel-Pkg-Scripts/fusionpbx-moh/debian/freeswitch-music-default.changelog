@@ -4,4 +4,4 @@ fusionpbx-music-default (1.0.0-1) unstable; urgency=low
     sampling rates after installation.
   * Default music on hold is now in sounds/music/default.
 
- -- Travis Cross <tc@traviscross.com>  Mon, 20 Aug 2012 08:05:58 +0000
+ -- Richard Neese <r.neese@gmail.com>  Mon, 20 Aug 2012 08:05:58 +0000

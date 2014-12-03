@@ -1,6 +1,6 @@
 #!/bin/bash
 ##### -*- mode:shell-script; indent-tabs-mode:nil; sh-basic-offset:2 -*-
-##### Author: Travis Cross <tc@traviscross.com>
+##### Author: Richard Neese <r.neese@gmail.com>
 
 #### directory independence
 
@@ -89,7 +89,7 @@ fmt_control () {
 Source: $base-$sound
 Section: comm
 Priority: optional
-Maintainer: Travis Cross <tc@traviscross.com>
+Maintainer: Richard Neese <r.neese@gmail.com>
 Build-Depends: debhelper (>= 8.0.0), sox, flac
 Standards-Version: 3.9.3
 Homepage: http://files.fusionpbx.org/
