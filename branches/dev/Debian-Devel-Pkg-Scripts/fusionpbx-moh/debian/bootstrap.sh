@@ -113,7 +113,7 @@ gen_control () {
 fmt_pkg_install () {
   fmt_edit_warning
   cat <<EOF
-/usr/share/fusionpbx/sounds/${path}
+/var/lib/fusionpbx/sounds/${path}
 EOF
 }
 
@@ -174,7 +174,7 @@ tmpl () {
     -e "s:__UPKG_NAME__:${upkg_name}:" \
     -e "s:__SOUND__:${sound}:" \
     -e "s:__PATH__:${path}:" \
-    -e "s:__SPATH__:/usr/share/fusionpbx/sounds/${path}:" \
+    -e "s:__SPATH__:/var/lib/fusionpbx/sounds/${path}:" \
     -e "s:__VERSION__:${version}:" \
     "$1.tmpl" > "$1"
 }
