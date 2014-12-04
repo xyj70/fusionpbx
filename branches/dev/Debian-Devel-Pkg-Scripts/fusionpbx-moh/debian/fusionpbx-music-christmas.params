@@ -1,6 +1,6 @@
 # -*- mode:sh -*-
 base="fusionpbx-music"
-upstream_base="fusionpbx-moh-classical"
+upstream_base="fusionpbx-sounds-music-christmas"
 sound_name="Default music on hold"
 rate="48000"
 sound="$(dpkg-parsechangelog -lchangelog | grep '^Source' | awk '{print $2}' | sed -e "s/${base}-//")"
