@@ -92,14 +92,14 @@ Priority: optional
 Maintainer: Travis Cross <tc@traviscross.com>
 Build-Depends: debhelper (>= 8.0.0), sox, flac
 Standards-Version: 3.9.3
-Homepage: http://files.fusionpbx.org/
+Homepage: http://repo.fusionpbx.com/music/
 
 Package: $base-$sound
 $(wrap "Provides: $(fmt_provides)")
 Architecture: all
 Depends: \${misc:Depends}, sox, flac
 Description: $sound_name sounds for FreeSWITCH
- $(wrap "This package contains the ${sound_name} sounds for FreeSWITCH.")
+ $(wrap "This package contains the ${sound_name} sounds for FusionPBX.")
 
 EOF
 }
@@ -113,7 +113,7 @@ gen_control () {
 fmt_pkg_install () {
   fmt_edit_warning
   cat <<EOF
-/usr/share/fusionpbx/sounds/${path}
+var/libfusionpbx/sounds/${path}
 EOF
 }
 
@@ -174,7 +174,7 @@ tmpl () {
     -e "s:__UPKG_NAME__:${upkg_name}:" \
     -e "s:__SOUND__:${sound}:" \
     -e "s:__PATH__:${path}:" \
-    -e "s:__SPATH__:/usr/share/fusionpbx/sounds/${path}:" \
+    -e "s:__SPATH__:/var/lib/fusionpbx/sounds/${path}:" \
     -e "s:__VERSION__:${version}:" \
     "$1.tmpl" > "$1"
 }
