@@ -1,7 +1,0 @@
-fusionpbx-moh (1.0.0-1) stable; urgency=low
-
-  * We now distribute music as FLAC files that are converted to various
-    sampling rates after installation.
-  * Default music on hold is now in /var/lib/fusionpbx/sounds/music/default.
-
- -- Richard Neese <r.neese@gmail.com>  Wed, 03 Dec 2014 12:41:00 -0600
