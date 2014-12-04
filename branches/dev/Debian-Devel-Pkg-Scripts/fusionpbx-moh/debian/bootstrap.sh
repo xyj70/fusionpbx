@@ -113,7 +113,7 @@ gen_control () {
 fmt_pkg_install () {
   fmt_edit_warning
   cat <<EOF
-var/libfusionpbx/sounds/${path}
+var/lib/fusionpbx/sounds/${path}
 EOF
 }
 
