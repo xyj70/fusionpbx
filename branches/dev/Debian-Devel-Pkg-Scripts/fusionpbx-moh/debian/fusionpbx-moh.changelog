@@ -1,4 +1,4 @@
-fusionpbx-music-default (1.0.0-1) unstable; urgency=low
+fusionpbx-moh (1.0.0-1) stable; urgency=low
 
   * We now distribute music as FLAC files that are converted to various
     sampling rates after installation.
