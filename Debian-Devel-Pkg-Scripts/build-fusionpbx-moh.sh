@@ -6,7 +6,7 @@ REPO2="/usr/home/repo/head/debian"
 rm -rf /usr/src/fusionpbx-moh
 rm -rf /usr/src/debs-fusionpbx-moh
 
-svn co http://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/fusionpbx-moh /usr/src/fusionpbx-moh
+svn export http://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/fusionpbx-moh /usr/src/fusionpbx-moh
 
 cd  /usr/src/fusionpbx-moh
 time ./debian/bootstrap.sh -p fusionpbx-music-default
