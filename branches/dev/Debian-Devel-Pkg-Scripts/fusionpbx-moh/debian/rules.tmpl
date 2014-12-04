@@ -75,7 +75,7 @@ build-indep: $(dflacs)
 
 get-orig-source:
 	$(eval tmpdir := $(shell mktemp -d --tmpdir=.))
-	wget -O $(tmpdir)/upstream.tgz "http://repo.fusionpbx.org/music/$(upkg)-$(srate)-$(ver).tar.gz"
+	wget -O $(tmpdir)/upstream.tgz "http://repo.fusionpbx.com/music/$(upkg)-$(srate)-$(ver).tar.gz"
 	mkdir -p $(tmpdir)/$(pkg)-$(ver)
 	tar -x -C $(tmpdir)/$(pkg)-$(ver) -f $(tmpdir)/upstream.tgz
 	if [ -d $(tmpdir)/$(pkg)-$(ver)/music ]; then \
