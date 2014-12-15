@@ -99,7 +99,7 @@ for i in adminer backup call_block call_broadcast call_center call_center_active
 	calls_active click_to_call conference_centers conferences conferences_active contacts content \
 	destinations devices dialplan dialplan_inbound dialplan_outbound edit exec extensions fax fifo \
 	fifo_list follow_me gateways hot_desking ivr_menu login log_viewer meetings modules music_on_hold \
-	park provision recordings registrations ring_groups schemas services settings sipml5 sip_profiles \
+	provision recordings registrations ring_groups schemas services settings sipml5 sip_profiles \
 	sip_status sql_query system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr \
 	xmpp operator_panel
 do cat > $WRK_DIR/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/debian/changelog << DELIM
@@ -117,7 +117,7 @@ for i in adminer backup call_block call_broadcast call_center call_center_active
 	calls_active click_to_call conference_centers conferences conferences_active contacts content \
 	destinations devices dialplan dialplan_inbound dialplan_outbound edit exec extensions fax fifo \
 	fifo_list follow_me gateways hot_desking ivr_menu login log_viewer meetings modules music_on_hold \
-	park provision recordings registrations ring_groups schemas services settings sipml5 sip_profiles \
+	provision recordings registrations ring_groups schemas services settings sipml5 sip_profiles \
 	sip_status sql_query system time_conditions traffic_graph vars voicemail_greetings voicemails xml_cdr \
 	xmpp operator_panel
 do svn export --force $SVN_SRC/fusionpbx/app/"${i}" $WRK_DIR/fusionpbx-apps/fusionpbx-app-"${i//_/-}"/"${i}"
@@ -180,7 +180,7 @@ for i in adminer backup call-block call-broadcast call-center call-center-active
 calls-active click-to-call conference-centers conferences conferences-active contacts content \
 destinations devices dialplan dialplan-inbound dialplan-outbound edit exec extensions fax fifo \
 fifo-list follow-me gateways hot-desking ivr-menu login log-viewer meetings modules music-on-hold \
-park provision recordings registrations ring-groups schemas services settings sipml5 sip-profiles \
+provision recordings registrations ring-groups schemas services settings sipml5 sip-profiles \
 sip-status sql-query system time-conditions traffic-graph vars voicemail-greetings voicemails xml-cdr \
 xmpp operator-panel
 do cd $WRK_DIR/fusionpbx-apps/fusionpbx-app-"${i}"
