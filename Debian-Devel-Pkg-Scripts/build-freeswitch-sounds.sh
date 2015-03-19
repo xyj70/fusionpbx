@@ -2,7 +2,7 @@
 
 #Build Canada English Sounds
 rm -rf /usr/src/freeswitch-sounds
-svn co https://Fusionpbx.googlecode.com/svn/branches/my-scripts/freeswitch-sounds /usr/src/freeswitch-sounds
+svn co https://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/freeswitch-sounds /usr/src/freeswitch-sounds
 cd  /usr/src/freeswitch-sounds
 /bin/sed -i debian/freeswitch-sounds-en-ca-june.changelog -e s,unstable,stable,
 time ./debian/bootstrap.sh -p freeswitch-sounds-en-ca-june
@@ -13,7 +13,7 @@ dpkg-buildpackage -uc -us -Zxz -z9
 
 #Build US English Sounds
 rm -rf /usr/src/freeswitch-sounds
-svn co https://fusionpbx.googlecode.com/svn/branches/my-scripts/freeswitch-sounds /usr/src/freeswitch-sounds
+svn co https://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/freeswitch-sounds /usr/src/freeswitch-sounds
 cd  /usr/src/freeswitch-sounds
 /bin/sed -i debian/freeswitch-sounds-en-us-callie.changelog -e s,unstable,stable,
 time ./debian/bootstrap.sh -p freeswitch-sounds-en-us-callie
@@ -23,7 +23,7 @@ dpkg-buildpackage -uc -us -Zxz -z9
 
 #Build Canada French Sounds
 rm -rf /usr/src/freeswitch-sounds
-svn co https://fusionpbx.googlecode.com/svn/branches/my-scripts/freeswitch-sounds /usr/src/freeswitch-sounds
+svn co https://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/freeswitch-sounds /usr/src/freeswitch-sounds
 cd  /usr/src/freeswitch-sounds
 /bin/sed -i debian/freeswitch-sounds-fr-ca-june.changelog -e s,unstable,stable,
 time ./debian/bootstrap.sh -p freeswitch-sounds-fr-ca-june
@@ -33,7 +33,7 @@ dpkg-buildpackage -uc -us -Zxz -z9
 
 #Build Brazil Portgause Sounds
 rm -rf /usr/src/freeswitch-sounds
-svn co https://fusionpbx.googlecode.com/svn/branches/my-scripts/freeswitch-sounds /usr/src/freeswitch-sounds
+svn co https://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/freeswitch-sounds /usr/src/freeswitch-sounds
 cd  /usr/src/freeswitch-sounds
 /bin/sed -i debian/freeswitch-sounds-pt-br-karina.changelog -e s,unstable,stable,
 time ./debian/bootstrap.sh -p freeswitch-sounds-pt-br-karina
@@ -43,7 +43,7 @@ dpkg-buildpackage -uc -us -Zxz -z9
 
 #Build Russian Russian Sounds
 rm -rf /usr/src/freeswitch-sounds
-svn co https://fusionpbx.googlecode.com/svn/branches/my-scripts/freeswitch-sounds /usr/src/freeswitch-sounds
+svn co https://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/freeswitch-sounds /usr/src/freeswitch-sounds
 cd  /usr/src/freeswitch-sounds
 /bin/sed -i debian/freeswitch-sounds-ru-ru-elena.changelog -e s,unstable,stable,
 time ./debian/bootstrap.sh -p freeswitch-sounds-ru-ru-elena
@@ -53,7 +53,7 @@ dpkg-buildpackage -uc -us -Zxz -z9
 
 #Build Swedish Sounds
 rm -rf /usr/src/freeswitch-sounds
-svn co https://fusionpbx.googlecode.com/svn/branches/my-scripts/freeswitch-sounds /usr/src/freeswitch-sounds
+svn co https://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/freeswitch-sounds /usr/src/freeswitch-sounds
 cd  /usr/src/freeswitch-sounds
 /bin/sed -i debian/freeswitch-sounds-sv-se-jakob.changelog -e s,unstable,stable,
 time ./debian/bootstrap.sh -p freeswitch-sounds-sv-se-jakob
@@ -63,7 +63,7 @@ dpkg-buildpackage -uc -us -Zxz -z9
 
 #Build Cantones Sounds
 rm -rf /usr/src/freeswitch-sounds
-svn co https://fusionpbx.googlecode.com/svn/branches/my-scripts/freeswitch-sounds /usr/src/freeswitch-sounds
+svn co https://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/freeswitch-sounds /usr/src/freeswitch-sounds
 cd  /usr/src/freeswitch-sounds
 /bin/sed -i debian/freeswitch-sounds-zh-cn-sinmei.changelog -e s,unstable,stable,
 time ./debian/bootstrap.sh -p freeswitch-sounds-zh-cn-sinmei
@@ -73,7 +73,7 @@ dpkg-buildpackage -uc -us -Zxz -z9
 
 #Build Mandarin Sounds
 rm -rf /usr/src/freeswitch-sounds
-svn co https://fusionpbx.googlecode.com/svn/branches/my-scripts/freeswitch-sounds /usr/src/freeswitch-sounds
+svn co https://fusionpbx.googlecode.com/svn/branches/dev/Debian-Devel-Pkg-Scripts/freeswitch-sounds /usr/src/freeswitch-sounds
 cd  /usr/src/freeswitch-sounds
 /bin/sed -i debian/freeswitch-sounds-zh-hk-sinmei.changelog -e s,unstable,stable,
 time ./debian/bootstrap.sh -p freeswitch-sounds-zh-hk-sinmei
