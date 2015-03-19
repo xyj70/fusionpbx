@@ -50,7 +50,7 @@ install: build
 	# cd builddir && $(MAKE) INSTALL_ROOT=$(CURDIR)/debian/$(APPNAME) install
 	#rm -rf $(CURDIR)/debian/lookup-dbg
 	mkdir -p debian/fusionpbx-app-phrases/var/www/fusionpbx/app
-	cp -pr login debian/fusionpbx-app-phrases/var/www/fusionpbx/app
+	cp -pr phrases debian/fusionpbx-app-phrases/var/www/fusionpbx/app
 
 build-indep: build install
 
