@@ -1,7 +1,7 @@
 #!/bin/bash
 REPO1="/home/repo/freeswitch-armhf/release/debian"
 REPO2="/home/repo/freeswitch-armhf/head/debian"
-REPO3="/home/repo/freeswitch-head/debian"
+REPO3="/home/repo/freeswitch/head/debian"
 
 WORKDIR="/usr/src"
 
