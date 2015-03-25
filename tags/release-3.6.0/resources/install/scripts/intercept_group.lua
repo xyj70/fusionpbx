@@ -16,7 +16,7 @@
 --
 --	The Initial Developer of the Original Code is
 --	Mark J Crane <markjcrane@fusionpbx.com>
---	Copyright (C) 2010 - 2013
+--	Copyright (C) 2010 - 2014
 --	the Initial Developer. All Rights Reserved.
 --
 --	Contributor(s):
@@ -54,6 +54,7 @@
 			sounds_dir = session:getVariable("sounds_dir");
 			context = session:getVariable("context");
 			caller_id_number = session:getVariable("caller_id_number");
+			sofia_profile_name = session:getVariable("sofia_profile_name");
 
 		--set the sounds path for the language, dialect and voice
 			default_language = session:getVariable("default_language");
@@ -156,7 +157,8 @@
 			assert(dbh:connected());
 
 		--check the database to get the uuid of a ringing call
-			sql = "SELECT call_uuid AS uuid FROM channels ";
+			call_hostname = "";
+			sql = "SELECT call_uuid AS uuid, hostname, ip_addr FROM channels ";
 			sql = sql .. "WHERE callstate = 'RINGING' ";
 			sql = sql .. "AND (";
 			x = 0;
@@ -168,10 +170,10 @@
 				end
 				x = x + 1;
 			end
-			sql = sql .. ")";
-			if (domain_count > 1) then
-				sql = sql .. "and context = '"..context.."' ";
-			end
+			sql = sql .. ") ";
+			--if (domain_count > 1) then
+			--	sql = sql .. "and context = '"..context.."' ";
+			--end
 			sql = sql .. "limit 1 ";
 			if (debug["sql"]) then
 				freeswitch.consoleLog("NOTICE", "sql "..sql.."\n");
@@ -181,12 +183,27 @@
 				--	freeswitch.consoleLog("NOTICE", "row "..key.." "..val.."\n");
 				--end
 				uuid = row.uuid;
+				call_hostname = row.hostname;
+				ip_addr = row.ip_addr;
 			end);
 	end
 
+--get the hostname
+	hostname = freeswitch.getGlobalVariable("hostname");
+	freeswitch.consoleLog("NOTICE", "Hostname:"..hostname.."  Call Hostname:"..call_hostname.."\n");
+
 --intercept a call that is ringing
-	if (uuid) then
-		session:execute("intercept", uuid);
+	if (uuid ~= nil) then
+		if (hostname == call_hostname) then
+			session:execute("intercept", uuid);
+		else
+			session:execute("export", "sip_h_X-intercept_uuid="..uuid);
+			session:execute("export", "sip_h_X-domain_uuid="..domain_uuid);
+			session:execute("export", "sip_h_X-domain_name="..domain_name);
+			port = freeswitch.getGlobalVariable(sofia_profile_name.."_sip_port");
+			session:execute("bridge", "sofia/"..sofia_profile_name.."/*8@"..call_hostname..":"..port);
+			freeswitch.consoleLog("NOTICE", "Send call to other host.... \n");
+		end
 	end
 
 --notes
@@ -194,4 +211,3 @@
 		--cmd = "originate user/1007@voip.example.com &intercept("..uuid..")";
 		--api = freeswitch.API();
 		--result = api:executeString(cmd);
-

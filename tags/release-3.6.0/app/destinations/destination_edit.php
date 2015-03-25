@@ -130,9 +130,15 @@ if (count($_POST) > 0 && strlen($_POST["persistformvar"]) == 0) {
 
 			//add the domain_uuid
 				$_POST["domain_uuid"] = $_SESSION['domain_uuid'];
-
+			//determine whether save the dialplan
+				foreach ($_POST["dialplan_details"] as $row) {
+					if (strlen($row["dialplan_detail_data"]) > 0) {
+						$add_dialplan = true;
+						break;
+					}
+				}
 			//add or update the dialplan if the destination number is set
-				if (strlen($destination_number) > 0) {
+				if ($add_dialplan) {
 					//get the array
 						$dialplan_details = $_POST["dialplan_details"];
 
@@ -631,33 +637,35 @@ if (count($_POST) > 0 && strlen($_POST["persistformvar"]) == 0) {
 	echo "</td>\n";
 	echo "</tr>\n";
 
-	echo "<tr>\n";
-	echo "<td class='vncell' valign='top' align='left' nowrap>\n";
-	echo "	".$text['label-fax_uuid'].":\n";
-	echo "</td>\n";
-	echo "<td class='vtable' align='left'>\n";
-	$sql = "select * from v_fax ";
-	$sql .= "where domain_uuid = '".$_SESSION["domain_uuid"]."' ";
-	$sql .= "order by fax_name asc ";
-	$prep_statement = $db->prepare(check_sql($sql));
-	$prep_statement->execute();
-	$result = $prep_statement->fetchAll(PDO::FETCH_ASSOC);
-	echo "	<select name='fax_uuid' id='fax_uuid' class='formfld' style='".$select_style."'>\n";
-	echo "	<option value=''></option>\n";
-	foreach ($result as &$row) {
-		if ($row["fax_uuid"] == $fax_uuid) {
-			echo "		<option value='".$row["fax_uuid"]."' selected='selected'>".$row["fax_extension"]." ".$row["fax_name"]."</option>\n";
+	if (file_exists($_SERVER['DOCUMENT_ROOT'].PROJECT_PATH."/app/fax/app_config.php")){
+		echo "<tr>\n";
+		echo "<td class='vncell' valign='top' align='left' nowrap>\n";
+		echo "	".$text['label-fax_uuid'].":\n";
+		echo "</td>\n";
+		echo "<td class='vtable' align='left'>\n";
+		$sql = "select * from v_fax ";
+		$sql .= "where domain_uuid = '".$_SESSION["domain_uuid"]."' ";
+		$sql .= "order by fax_name asc ";
+		$prep_statement = $db->prepare(check_sql($sql));
+		$prep_statement->execute();
+		$result = $prep_statement->fetchAll(PDO::FETCH_ASSOC);
+		echo "	<select name='fax_uuid' id='fax_uuid' class='formfld' style='".$select_style."'>\n";
+		echo "	<option value=''></option>\n";
+		foreach ($result as &$row) {
+			if ($row["fax_uuid"] == $fax_uuid) {
+				echo "		<option value='".$row["fax_uuid"]."' selected='selected'>".$row["fax_extension"]." ".$row["fax_name"]."</option>\n";
+			}
+			else {
+				echo "		<option value='".$row["fax_uuid"]."'>".$row["fax_extension"]." ".$row["fax_name"]."</option>\n";
+			}
 		}
-		else {
-			echo "		<option value='".$row["fax_uuid"]."'>".$row["fax_extension"]." ".$row["fax_name"]."</option>\n";
-		}
+		echo "	</select>\n";
+		unset ($prep_statement, $extension);
+		echo "	<br />\n";
+		echo "	".$text['description-fax_uuid']."\n";
+		echo "</td>\n";
+		echo "</tr>\n";
 	}
-	echo "	</select>\n";
-	unset ($prep_statement, $extension);
-	echo "	<br />\n";
-	echo "	".$text['description-fax_uuid']."\n";
-	echo "</td>\n";
-	echo "</tr>\n";
 
 	echo "<tr>\n";
 	echo "<td class='vncell' valign='top' align='left' nowrap='nowrap'>\n";

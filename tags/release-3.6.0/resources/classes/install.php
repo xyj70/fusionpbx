@@ -38,7 +38,13 @@ include "root.php";
 		//$option '-n' --no-clobber
 		public function recursive_copy($src, $dst, $option = '') {
 			if (file_exists('/bin/cp')) {
-				 exec ('cp -RLp '.$option.' '.$src.'/* '.$dst);
+				if (strtoupper(substr(PHP_OS, 0, 3)) === 'SUN') {
+					//copy -R recursive, preserve attributes for SUN
+					exec ('cp -Rp '.$src.'/* '.$dst);
+				} else {
+					//copy -R recursive, -L follow symbolic links, -p preserve attributes for other Posix systemss
+					exec ('cp -RLp '.$option.' '.$src.'/* '.$dst);
+				}
 			}
 			else {
 				$dir = opendir($src);
@@ -96,8 +102,7 @@ include "root.php";
 
 		function copy() {
 			$this->copy_scripts();
-			$this->copy_sounds();
-			$this->copy_swf();
+			//$this->copy_sounds();
 		}
 
 		function copy_conf() {
@@ -121,8 +126,9 @@ include "root.php";
 						}
 					}
 				//copy resources/templates/conf to the freeswitch conf dir
-					if (file_exists('/usr/share/fusionpbx/resources/templates/conf')){
-						$src_dir = "/usr/share/fusionpbx/resources/templates/conf";
+				// added /examples/ into the string
+					if (file_exists('/usr/share/examples/fusionpbx/resources/templates/conf')){
+						$src_dir = "/usr/share/examples/fusionpbx/resources/templates/conf";
 					}
 					else {
 						
@@ -135,11 +141,11 @@ include "root.php";
 					//print_r($install->result);
 			}
 		}
-
+		// added /examples/ into the string
 		function copy_scripts() {
 			if (file_exists($this->switch_scripts_dir)) {
-				if (file_exists('/usr/share/fusionpbx/resources/install/scripts')){
-					$src_dir = '/usr/share/fusionpbx/resources/install/scripts';
+				if (file_exists('/usr/share/examples/fusionpbx/resources/install/scripts')){
+					$src_dir = '/usr/share/examples/fusionpbx/resources/install/scripts';
 				}
 				else {
 					$src_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/install/scripts';
@@ -152,34 +158,25 @@ include "root.php";
 				chmod($dst_dir, 0774);
 			}
 		}
-
-		function copy_sounds() {
-			if (file_exists($this->switch_sounds_dir)) {
-				$src_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/install/sounds/en/us/callie/custom/';
-				$dst_dir = $this->switch_sounds_dir.'/en/us/callie/custom/';
-				$this->recursive_copy($src_dir, $dst_dir, "-n");
-				if (is_readable($this->switch_sounds_dir)) {
-					$this->recursive_copy($src_dir, $dst_dir);
-					chmod($dst_dir, 0664);
-				}
-			}
-		}
-
-		function copy_swf() {
-			clearstatcache();
-			if (file_exists($_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/app/recordings')) {
-				$file = "slim.swf";
-				$src_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/install/htdocs';
-				$dst_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/app/recordings';
-				if (copy($src_dir.'/'.$file, $dst_dir.'/'.$file)) {
-					$this->result['copy']['swf'][] = "copied from ".$src_dir."/".$file." to ".$dst_dir."/".$file."<br />\n";
-				}
-				else {
-					$this->result['copy']['swf'][] = "copy failed from ".$src_dir."/".$file." to ".$dst_dir."/".$file."<br />\n";
-				}
-			}
-		}
-
+		
+		//function copy_sounds() {
+		//	if (file_exists($this->switch_sounds_dir)) {
+		//			if (file_exists('/usr/share/examples/fusionpbx/resources/install/sounds/en/us/callie/custom/')){
+		//			$src_dir = '/usr/share/examples/fusionpbx/resources/install/sounds/en/us/callie/custom/';
+					// changes the output dir for testing
+		//			$dst_dir = $this->switch_sounds_dir.'/en/us/fusionpbx/custom/';
+		//		}
+		//		else {
+		//			$src_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/install/sounds/en/us/callie/custom/';
+		//			$dst_dir = $this->switch_sounds_dir.'/en/us/callie/custom/';
+		//		}
+		//		$this->recursive_copy($src_dir, $dst_dir, "-n");
+		//		if (is_readable($this->switch_sounds_dir)) {
+		//			$this->recursive_copy($src_dir, $dst_dir);
+		//			chmod($dst_dir, 0664);
+		//		}
+		//	}
+		//}
 	}
 
 //how to use the class

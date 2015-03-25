@@ -42,8 +42,13 @@
 				}
 
 			//set the voicemail_id array
-				foreach ($_SESSION['user']['extension'] as $value) {
-					$voicemail_ids[]['voicemail_id'] = $value['user'];
+				foreach ($_SESSION['user']['extension'] as $row) {
+					if (strlen($row['number_alias']) > 0) {
+						$voicemail_ids[]['voicemail_id'] = $row['number_alias'];
+					}
+					else {
+						$voicemail_ids[]['voicemail_id'] = $row['user'];
+					}
 				}
 
 			//get the uuid and voicemail_id

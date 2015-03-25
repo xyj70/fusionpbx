@@ -23,6 +23,7 @@
 
 	Contributor(s):
 	Mark J Crane <markjcrane@fusionpbx.com>
+	Luis Daniel Lucio Quiroz <dlucio@okay.com.mx>
 */
 
 //set the include path
@@ -83,6 +84,7 @@
 	}
 	else {
 		//get the headers
+			print_r($decoded[0]);
 			$headers = json_decode($decoded[0]["Headers"]["x-headers:"], true);
 			$subject = $decoded[0]["Headers"]["subject:"];
 			$from = $decoded[0]["Headers"]["from:"];
@@ -105,21 +107,22 @@
 			}
 			else {
 				$content_type_array = explode(";", $content_type);
-				if ($content_type_array[0] == "text/html" || $content_type_array[0] == "text/plain") {
-					$body = $row["Body"];
-				}
+				$body = $decoded[0]["Body"];
+				//if ($content_type_array[0] == "text/html" || $content_type_array[0] == "text/plain") {
+				//	$body = $row["Body"];
+				//}
 			}
 	}
 
 //prepare smtp server settings
 	// load default smtp settings
-	$smtp['host'] 		= $_SESSION['email']['smtp_host']['var'];
+	$smtp['host'] 		= (strlen($_SESSION['email']['smtp_host']['var'])?$_SESSION['email']['smtp_host']['var']:'127.0.0.1');
 	$smtp['secure'] 	= $_SESSION['email']['smtp_secure']['var'];
 	$smtp['auth'] 		= $_SESSION['email']['smtp_auth']['var'];
 	$smtp['username'] 	= $_SESSION['email']['smtp_username']['var'];
 	$smtp['password'] 	= $_SESSION['email']['smtp_password']['var'];
-	$smtp['from'] 		= $_SESSION['email']['smtp_from']['var'];
-	$smtp['from_name'] 	= $_SESSION['email']['smtp_from_name']['var'];
+	$smtp['from'] 		= (strlen($_SESSION['email']['smtp_from']['var'])?$_SESSION['email']['smtp_from']['var']:'fusionpbx@example.com');
+	$smtp['from_name'] 	= (strlen($_SESSION['email']['smtp_from_name']['var'])?$_SESSION['email']['smtp_from_name']['var']:'FusionPBX Voicemail');
 
 	// overwrite with domain-specific smtp server settings, if any
 	if ($headers["X-FusionPBX-Domain-UUID"] != '') {
@@ -175,7 +178,7 @@
 	echo "Reply-to: ".$reply_to."\n";
 	echo "To: ".$to."\n";
 	echo "Date: ".$date."\n";
-	//echo "Body: ".$body."\n";
+	echo "Body: ".$body."\n";
 
 //add to, from, fromname, custom headers and subject to the email
 	$mail->From = $smtp['from'] ;
@@ -253,7 +256,7 @@
 	}
 
 //add the body to the email
-	if (substr($body, 0, 5) == "<html") {
+	if ((substr($body, 0, 5) == "<html") ||  (substr($body, 0, 9) == "<!doctype")) {
 		$mail->ContentType = "text/html";
 		$mail->Body = $body;
 	}

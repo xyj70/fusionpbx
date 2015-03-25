@@ -136,7 +136,17 @@ include "root.php";
 			//build the list of categories
 				$music_on_hold_dir = $_SESSION['switch']['sounds']['dir'].'/music';
 			//default category
-				$array = glob($music_on_hold_dir."/{8000,16000,32000,48000}", GLOB_ONLYDIR|GLOB_BRACE);
+				if (defined("GLOB_BRACE")) {
+					$array = glob($music_on_hold_dir."/{8000,16000,32000,48000}", GLOB_ONLYDIR|GLOB_BRACE);
+				}
+				else {
+					$array_1 = glob($music_on_hold_dir."/8000".$class_name.".php", GLOB_ONLYDIR);
+					$array_2 = glob($music_on_hold_dir."/16000".$class_name.".php", GLOB_ONLYDIR);
+					$array_3 = glob($music_on_hold_dir."/32000".$class_name.".php", GLOB_ONLYDIR);
+					$array_4 = glob($music_on_hold_dir."/48000".$class_name.".php", GLOB_ONLYDIR);
+					$array = array_merge((array)$array_1,(array)$array_2,(array)$array_3,(array)$array_4);
+					unset($array_1,$array_2,$array_3,$array_4);
+				}
 			//other categories
 				if (count($_SESSION['domains']) > 1) {
 					$array = array_merge($array, glob($music_on_hold_dir."/*/*/*", GLOB_ONLYDIR));
@@ -171,7 +181,12 @@ include "root.php";
 
 		public function save() {
 			//get the contents of the template
-				$file_contents = file_get_contents($_SERVER["DOCUMENT_ROOT"].PROJECT_PATH."/resources/templates/conf/autoload_configs/local_stream.conf.xml");
+				if (file_exists('/usr/share/examples/fusionpbx')) {
+					$file_contents = file_get_contents("/usr/share/examples/fusionpbx/resources/templates/conf/autoload_configs/local_stream.conf.xml");
+				}
+				else {
+					$file_contents = file_get_contents($_SERVER["DOCUMENT_ROOT"].PROJECT_PATH."/resources/templates/conf/autoload_configs/local_stream.conf.xml");
+				}
 
 			//replace the variable
 				$file_contents = str_replace("{v_moh_categories}", $this->xml, $file_contents);

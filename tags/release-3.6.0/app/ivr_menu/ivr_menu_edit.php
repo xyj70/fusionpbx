@@ -41,10 +41,6 @@ else {
 		$text[$key] = $value[$_SESSION['domain']['language']['code']];
 	}
 
-	$log = new Logging();
-	$log->log("debug", "passed validation, line 45");
-	$log->log("debug", check_str($_POST["ivr_menu_uuid"]));
-
 //function to show the list of sound files
 	function recur_sounds_dir($dir) {
 		global $dir_array;
@@ -791,6 +787,12 @@ for ($c = 0; $c < 1; $c++) {
 	}
 	else {
 		$select_options .= "		<option value='\${rs-ring}'>rs-ring</option>\n";
+	}
+	if ($ivr_menu_ringback == "\${it-ring}" || $ivr_menu_ringback == "it-ring") {
+		$select_options .= "		<option value='\${it-ring}' selected='selected'>it-ring</option>\n";
+	}
+	else {
+		$select_options .= "		<option value='\${it-ring}'>it-ring</option>\n";
 	}
 	if (is_dir($_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/app/music_on_hold')) {
 		require_once "app/music_on_hold/resources/classes/switch_music_on_hold.php";
