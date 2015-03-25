@@ -105,6 +105,9 @@ if (is_array($_REQUEST) && !empty($_REQUEST['src']) && !empty($_REQUEST['dest'])
 			case "rs-ring":
 				$ringback_value = "\'%(1000,4000,425.0,0.0)\'";
 				break;
+			case "it-ring":
+				$ringback_value = "\'%(1000,4000,425.0,0.0)\'";
+				break;
 			case "music":
 				$ringback_value = "\'local_stream://moh\'";
 				break;
@@ -376,13 +379,19 @@ if (is_array($_REQUEST) && !empty($_REQUEST['src']) && !empty($_REQUEST['dest'])
 		echo "    <option value='uk-ring' selected='selected'>".$text['opt-ukring']."</option>\n";
 	}
 	else {
-		echo "    <option value='uk-ring'>".$text['opt-ukring']."/option>\n";
+		echo "    <option value='uk-ring'>".$text['opt-ukring']."</option>\n";
 	}
 	if ($ringback == "rs-ring") { 
 		echo "    <option value='rs-ring' selected='selected'>".$text['opt-rsring']."</option>\n";
 	}
 	else {
 		echo "    <option value='rs-ring'>".$text['opt-rsring']."</option>\n";
+	}
+	if ($ringback == "it-ring") { 
+		echo "    <option value='it-ring' selected='selected'>".$text['opt-itring']."</option>\n";
+	}
+	else {
+		echo "    <option value='it-ring'>".$text['opt-itring']."</option>\n";
 	}
 	if ($ringback == "music") { 
 		echo "    <option value='music' selected='selected'>".$text['opt-moh']."</option>\n";

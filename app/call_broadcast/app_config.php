@@ -71,8 +71,8 @@
 		$apps[$x]['db'][$y]['fields'][$z]['deprecated'] = "true";
 		$z++;
 		$apps[$x]['db'][$y]['fields'][$z]['name']['text'] = "call_broadcast_uuid";
-		$apps[$x]['db'][$y]['fields'][$z]['name']['deprecated'][] = "call_call_broadcast_uuid";
-		$apps[$x]['db'][$y]['fields'][$z]['name']['deprecated'][] = "broadcast_uuid";
+		//$apps[$x]['db'][$y]['fields'][$z]['name']['deprecated'][0] = "call_call_broadcast_uuid";
+		//$apps[$x]['db'][$y]['fields'][$z]['name']['deprecated'][1] = "broadcast_uuid";
 		$apps[$x]['db'][$y]['fields'][$z]['type']['pgsql'] = "uuid";
 		$apps[$x]['db'][$y]['fields'][$z]['type']['sqlite'] = "text";
 		$apps[$x]['db'][$y]['fields'][$z]['type']['mysql'] = "char(36)";
@@ -143,5 +143,8 @@
 		$apps[$x]['db'][$y]['fields'][$z]['name'] = "broadcast_destination_data";
 		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
 		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "";
-
+		$z++;
+		$apps[$x]['db'][$y]['fields'][$z]['name'] = "broadcast_accountcode";
+		$apps[$x]['db'][$y]['fields'][$z]['type'] = "text";
+		$apps[$x]['db'][$y]['fields'][$z]['description']['en-us'] = "";
 ?>

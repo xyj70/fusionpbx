@@ -254,6 +254,24 @@ else {
 				echo "				<option value=''></option>\n";
 				$sql = "select extension_uuid, extension, number_alias from v_extensions ";
 				$sql .= "where domain_uuid = '".$_SESSION['domain_uuid']."' ";
+
+				if (!(if_group("admin") || if_group("superadmin"))) {
+					if (count($_SESSION['user']['extension']) > 0) {
+						$sql .= "and (";
+						$x = 0;
+						foreach($_SESSION['user']['extension'] as $row) {
+							if ($x > 0) { $sql .= "or "; }
+							$sql .= "extension = '".$row['user']."' ";
+							$x++;
+						}
+						$sql .= ")";
+					}
+					else {
+						//used to hide any results when a user has not been assigned an extension
+						$sql .= "and extension = 'disabled' ";
+					}
+				}
+
 				$sql .= "order by ";
 				$sql .= "extension asc ";
 				$sql .= ", number_alias asc ";
@@ -267,7 +285,11 @@ else {
 				unset ($prep_statement);
 				echo "			</select>\n";
 				echo "			<input type='text' class='formfld' style='".$style['caller_id_number']."' name='caller_id_number' id='caller_id_number' value='".$caller_id_number."'>\n";
-				echo "			<input type='button' id='btn_toggle_source' class='btn' name='' alt='".$text['button-back']."' value='&#9665;' onclick=\"toggle('source');\">\n";
+
+				if ((if_group("admin") || if_group("superadmin"))) {
+					echo "			<input type='button' id='btn_toggle_source' class='btn' name='' alt='".$text['button-back']."' value='&#9665;' onclick=\"toggle('source');\">\n";
+				}
+
 				echo "		</td>\n";
 				echo "	</tr>\n";
 				echo "	<tr>\n";
@@ -358,6 +380,12 @@ else {
 		require_once "resources/classes/database.php";
 		$database = new database;
 	}
+	if (count($_SESSION['domains']) == 1) { // add to path if single-tenant
+		$path_mod = $_SESSION["domain_name"];
+	}
+	else {
+		$path_mod = "";
+	}
 	if ($result_count > 0) {
 		foreach($result as $row) {
 			$tmp_year = date("Y", strtotime($row['start_stamp']));
@@ -375,7 +403,7 @@ else {
 			$hangup_cause = strtolower($hangup_cause);
 			$hangup_cause = ucwords($hangup_cause);
 
-			$tmp_dir = $_SESSION['switch']['recordings']['dir'].'/archive/'.$tmp_year.'/'.$tmp_month.'/'.$tmp_day;
+			$tmp_dir = $_SESSION['switch']['recordings']['dir'].'/'.$path_mod.'/archive/'.$tmp_year.'/'.$tmp_month.'/'.$tmp_day;
 			$tmp_name = '';
 			if(!empty($row['recording_file']) && file_exists($row['recording_file'])){
 				$tmp_name=$row['recording_file'];
@@ -499,23 +527,53 @@ else {
 				$accountcode = (strlen($row["accountcode"])?$row["accountcode"]:$_SESSION[domain_name]);
 				$database->sql = "SELECT currency FROM v_billings WHERE type_value='$accountcode'";
 				$database->result = $database->execute();
-				$billing_currency = (strlen($database->result[0]['currency'])?$database->result[0]['currency']:'USD');
+				$billing_currency = (strlen($database->result[0]['currency'])?$database->result[0]['currency']:
+					(strlen($_SESSION['billing']['currency']['text'])?$_SESSION['billing']['currency']['text']:'USD')
+				);
 				unset($database->sql);
 				unset($database->result);
 
-				$sell_price = $row['call_sell'];
+				$sell_price = strlen($row['call_sell'])?$row['call_sell']:0;
 				$lcr_direction = (strlen($row['direction'])?$row['direction']:"outbound");
-				$n = (($lcr_direction == "inbound")?$row['caller_id_number']:$row['destination_number']);
+
+				$xml_string = trim($row["xml"]);
+				$json_string = trim($row["json"]);
+				if (strlen($xml_string) > 0) {
+					$format = "xml";
+				}
+				if (strlen($json_string) > 0) {
+					$format = "json";
+				}
+				try {
+					if ($format == 'json') {
+						$array = json_decode($json_string,true);
+					}
+					if ($format == 'xml') {
+						$array = json_decode(json_encode((array)simplexml_load_string($xml_string)),true);
+					}
+				}
+				catch(Exception $e) {
+					echo $e->getMessage();
+				}
+
+				$n = (($lcr_direction == "inbound")?
+					check_str(urldecode($array["caller_profile"]["caller_id_number"])):
+					check_str(urldecode($array["variables"]["lcr_query_digits"]))
+				);
 
 				$database->table = "v_lcr";
-				$database->sql = "SELECT currency FROM v_lcr WHERE v_lcr.carrier_uuid= '' AND v_lcr.enabled='true' AND v_lcr.lcr_direction='$lcr_direction' AND v_lcr.digits IN (".number_series($n).") ORDER BY digits DESC, rate ASC, date_start DESC LIMIT 1";
+				$database->sql = "SELECT currency FROM v_lcr WHERE v_lcr.carrier_uuid IS NULL AND v_lcr.enabled='true' AND v_lcr.lcr_direction='$lcr_direction' AND v_lcr.digits IN (".number_series($n).") ORDER BY digits DESC, rate ASC, date_start DESC LIMIT 1";
 				$database->result = $database->execute();
-				//print "<pre>"; print_r($database->result); print "[".$database->result[0]['currency']."]"; print "</pre>";
+				// print "<pre>"; print $database->sql . ":";print "[".$database->result[0]['currency']."]"; print_r($array); print "</pre>";
 
-				$lcr_currency = ((is_string($database->result[0]['currency']) && strlen($database->result[0]['currency']))?$database->result[0]['currency']:'USD');	//billed currency
+				$lcr_currency = ((is_string($database->result[0]['currency']) && strlen($database->result[0]['currency']))?$database->result[0]['currency']:
+					(strlen($_SESSION['billing']['currency']['text'])?$_SESSION['billing']['currency']['text']:'USD')
+				);      //billed currency
 				unset($database->sql);
 				unset($database->result);
-				$price = currency_convert($sell_price, $billing_currency, $lcr_currency);
+				if ($sell_price){
+					$price = currency_convert($sell_price, $billing_currency, $lcr_currency);
+				}
 				echo "	<td valign='top' class='".$row_style[$c]."'>".number_format($price,6)." $billing_currency</td>\n";
 			}
 			if (permission_exists("xml_cdr_pdd")) {

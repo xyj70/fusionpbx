@@ -22,6 +22,7 @@
 
 	Contributor(s):
 	Mark J Crane <markjcrane@fusionpbx.com>
+	Luis Daniel Lucio Quiroz <dlucio@okay.com.mx>
 */
 include "root.php";
 
@@ -38,8 +39,7 @@ include "root.php";
 				global $db;
 				$this->db = $db;
 			//set the default template directory
-				switch (PHP_OS) {
-				case "Linux":
+				if (PHP_OS == "Linux") {
 					//set the default template dir
 						if (strlen($this->template_dir) == 0) {
 							if (file_exists('/etc/fusionpbx/resources/templates/provision')) {
@@ -49,8 +49,7 @@ include "root.php";
 								$this->template_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/templates/provision';
 							}
 						}
-					break;
-				case "FreeBSD":
+				} elseif (PHP_OS == "FreeBSD") {
 					//if the FreeBSD port is installed use the following paths by default.
 						if (file_exists('/usr/local/etc/fusionpbx/resources/templates/provision')) {
 							if (strlen($this->template_dir) == 0) {
@@ -68,20 +67,17 @@ include "root.php";
 								$this->template_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/templates/provision';
 							}
 						}
-					break;
-				case "NetBSD":
+				} elseif (PHP_OS == "NetBSD") {
 					//set the default template_dir
 						if (strlen($this->template_dir) == 0) {
 							$this->template_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/templates/provision';
 						}
-					break;
-				case "OpenBSD":
+				} elseif (PHP_OS == "OpenBSD") {
 					//set the default template_dir
 						if (strlen($this->template_dir) == 0) {
 							$this->template_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/templates/provision';
 						}
-					break;
-				default:
+				} else {
 					//set the default template_dir
 						if (strlen($this->template_dir) == 0) {
 							$this->template_dir = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH.'/resources/templates/provision';
@@ -469,6 +465,9 @@ include "root.php";
 						$mac = strtoupper($mac);
 						break;
 					case "snom":
+						$mac = strtolower($mac);
+						break;
+					case "polycom":
 						$mac = strtolower($mac);
 						break;
 					default:

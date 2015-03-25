@@ -131,7 +131,7 @@
 	$text['label-ringback']['pt-pt'] = "Ring Back";
 	$text['label-ringback']['fr-fr'] = "Retoure de sonnerie";
 
-	$text['desc-ringback']['en-us'] = "Defines what the you will hear while destination is being called. The choices are music (music on hold) ring (ring tone).";
+	$text['desc-ringback']['en-us'] = "Defines what you will hear while destination is being called. The choices are music (music on hold) ring (ring tone).";
 	$text['desc-ringback']['es-cl'] = "Defina qué desea escuchar mientras se llama al destinatario. Las opciones son música (música en espera) o tono de marcado";
 	$text['desc-ringback']['pt-pt'] = "Definir o que deseja ouvir enquanto o destino não atende. As escolhas são música (música em espera) ring (tom de chamada).";
 	$text['desc-ringback']['fr-fr'] = "Défini ce vous entendrez pendant que la destination sera appelée. Les choix sont musique (musique de garde) sonnerie.";
@@ -161,6 +161,11 @@
 	$text['opt-rsring']['pt-pt'] = "rs-ring";
 	$text['opt-rsring']['fr-fr'] = "rs-ring";
 
+	$text['opt-itring']['en-us'] = "it-ring";
+	$text['opt-itring']['es-cl'] = "it-ring";
+	$text['opt-itring']['pt-pt'] = "it-ring";
+	$text['opt-itring']['fr-fr'] = "it-ring";
+	
 	$text['opt-moh']['en-us'] = "music";
 	$text['opt-moh']['es-cl'] = "musica";
 	$text['opt-moh']['pt-pt'] = "música";

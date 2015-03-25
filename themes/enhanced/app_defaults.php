@@ -40,21 +40,49 @@ if ($domains_processed == 1) {
 		$array[$x]['default_setting_name'] = 'text';
 		$array[$x]['default_setting_value'] = '#ffffff';
 		$array[$x]['default_setting_enabled'] = 'true';
-		$array[$x]['default_setting_description'] = 'Set a background color (HTML compatible) for the login box.';
+		$array[$x]['default_setting_description'] = 'Set the background color (HTML compatible) for the login box.';
+		$x++;
+		$array[$x]['default_setting_category'] = 'theme';
+		$array[$x]['default_setting_subcategory'] = 'domain_visible';
+		$array[$x]['default_setting_name'] = 'text';
+		$array[$x]['default_setting_value'] = 'true';
+		$array[$x]['default_setting_enabled'] = 'true';
+		$array[$x]['default_setting_description'] = 'Set the visibility of the name of the domain currently being managed.';
+		$x++;
+		$array[$x]['default_setting_category'] = 'theme';
+		$array[$x]['default_setting_subcategory'] = 'domain_color';
+		$array[$x]['default_setting_name'] = 'text';
+		$array[$x]['default_setting_value'] = '#000000';
+		$array[$x]['default_setting_enabled'] = 'true';
+		$array[$x]['default_setting_description'] = 'Set the text color for domain name.';
+		$x++;
+		$array[$x]['default_setting_category'] = 'theme';
+		$array[$x]['default_setting_subcategory'] = 'domain_background_color';
+		$array[$x]['default_setting_name'] = 'text';
+		$array[$x]['default_setting_value'] = '#000000';
+		$array[$x]['default_setting_enabled'] = 'false';
+		$array[$x]['default_setting_description'] = 'Set the background color (hexadecimal) for the domain name.';
+		$x++;
+		$array[$x]['default_setting_category'] = 'theme';
+		$array[$x]['default_setting_subcategory'] = 'domain_background_opacity';
+		$array[$x]['default_setting_name'] = 'text';
+		$array[$x]['default_setting_value'] = '0.1';
+		$array[$x]['default_setting_enabled'] = 'false';
+		$array[$x]['default_setting_description'] = 'Set the background opacity of the domain name.';
 		$x++;
 		$array[$x]['default_setting_category'] = 'theme';
 		$array[$x]['default_setting_subcategory'] = 'footer_background_color';
 		$array[$x]['default_setting_name'] = 'text';
 		$array[$x]['default_setting_value'] = '#000000';
 		$array[$x]['default_setting_enabled'] = 'true';
-		$array[$x]['default_setting_description'] = 'Set a background color (HTML compatible) for the footer bar.';
+		$array[$x]['default_setting_description'] = 'Set the background color (HTML compatible) for the footer bar.';
 		$x++;
 		$array[$x]['default_setting_category'] = 'theme';
 		$array[$x]['default_setting_subcategory'] = 'footer_color';
 		$array[$x]['default_setting_name'] = 'text';
 		$array[$x]['default_setting_value'] = '#ffffff';
 		$array[$x]['default_setting_enabled'] = 'true';
-		$array[$x]['default_setting_description'] = 'Set a foreground color (HTML compatible) for the footer bar.';
+		$array[$x]['default_setting_description'] = 'Set the foreground color (HTML compatible) for the footer bar.';
 		$x++;
 		$array[$x]['default_setting_category'] = 'theme';
 		$array[$x]['default_setting_subcategory'] = 'footer_opacity';
@@ -121,8 +149,7 @@ if ($domains_processed == 1) {
 
 	//iterate and add each, if necessary
 		foreach ($array as $index => $default_settings) {
-
-		//add theme default settings
+			//add theme default settings
 			$sql = "select count(*) as num_rows from v_default_settings ";
 			$sql .= "where default_setting_category = 'theme' ";
 			$sql .= "and default_setting_subcategory = '".$default_settings['default_setting_subcategory']."' ";
@@ -136,11 +163,9 @@ if ($domains_processed == 1) {
 					$orm->name('default_settings');
 					$orm->save($array[$index]);
 					$message = $orm->message;
-					//print_r($message);
 				}
 				unset($row);
 			}
-
 		}
 
 	//define secondary background color array

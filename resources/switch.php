@@ -166,7 +166,7 @@ function load_extensions() {
 		if (strlen($_SESSION["domain_uuid"]) > 0 && strlen($_SESSION["user_uuid"]) > 0 && count($_SESSION['user']['extension']) == 0) {
 			//get the user extension list
 				unset($_SESSION['user']['extension']);
-				$sql = "select e.extension, e.user_context, e.extension_uuid, e.outbound_caller_id_name, e.outbound_caller_id_number from v_extensions as e, v_extension_users as u ";
+				$sql = "select e.extension, e.number_alias, e.user_context, e.extension_uuid, e.outbound_caller_id_name, e.outbound_caller_id_number from v_extensions as e, v_extension_users as u ";
 				$sql .= "where e.domain_uuid = '".$_SESSION['domain_uuid']."' ";
 				$sql .= "and e.extension_uuid = u.extension_uuid ";
 				$sql .= "and u.user_uuid = '".$_SESSION['user_uuid']."' ";
@@ -177,6 +177,7 @@ function load_extensions() {
 					$x = 0;
 					foreach($result as $row) {
 						$_SESSION['user']['extension'][$x]['user'] = $row['extension'];
+						$_SESSION['user']['extension'][$x]['number_alias'] = $row['number_alias'];
 						$_SESSION['user']['extension'][$x]['extension_uuid'] = $row['extension_uuid'];
 						$_SESSION['user']['extension'][$x]['outbound_caller_id_name'] = $row['outbound_caller_id_name'];
 						$_SESSION['user']['extension'][$x]['outbound_caller_id_number'] = $row['outbound_caller_id_number'];
@@ -868,7 +869,6 @@ function switch_select_destination($select_type, $select_label, $select_name, $s
 		}
 
 	//gateways
-		if (file_exists($_SERVER['DOCUMENT_ROOT'].PROJECT_PATH."/app/conference_centers/app_config.php")) {
 			if (if_group("superadmin")) {
 				if ($select_type == "dialplan" || $select_type == "ivr" || $select_type == "call_center_contact" || $select_type == "bridge") {
 					echo "<optgroup label='Gateways'>\n";
@@ -884,7 +884,7 @@ function switch_select_destination($select_type, $select_label, $select_name, $s
 				unset ($prep_statement, $sql);
 				$tmp_selected = '';
 				foreach($result as $row) {
-					if ($row['gateway'] == $select_value) {
+					if ('sofia/gateway/'.$row['gateway_uuid'].'/' == $select_value) {
 						$tmp_selected = "selected='selected'";
 					}
 					if ($select_type == "dialplan") {
@@ -896,8 +896,42 @@ function switch_select_destination($select_type, $select_label, $select_name, $s
 					if ($select_type == "ivr") {
 						echo "		<option value='menu-exec-app:bridge sofia/gateway/".$row['gateway_uuid']."/xxxxx' $tmp_selected>".$row['gateway']."@".$row['domain_name']."</option>\n";
 					}
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].PROJECT_PATH."/app/conference_centers/app_config.php")) {
 					if ($select_type == "call_center_contact") {
 						echo "		<option value='sofia/gateway/".$row['gateway_uuid']."/xxxxx' $tmp_selected>".$row['gateway']."@".$row['domain_name']."</option>\n";
+					}
+		}
+					$tmp_selected = '';
+				}
+				unset($sql, $result);
+				if ($select_type == "dialplan" || $select_type == "ivr" || $select_type == "call_center_contact") {
+					echo "</optgroup>\n";
+				}
+			}
+		
+
+	//xmpp
+		if (file_exists($_SERVER['DOCUMENT_ROOT'].PROJECT_PATH."/app/xmpp/app_config.php")) {
+			if (if_group("superadmin")) {
+				if ($select_type == "bridge") {
+					echo "<optgroup label='XMPP Gateways'>\n";
+				}
+				$sql = "select v_xmpp.xmpp_profile_uuid, v_xmpp.profile_name, v_domains.domain_name from v_xmpp ";
+				$sql .= "inner join v_domains on v_xmpp.domain_uuid=v_domains.domain_uuid ";
+				$sql .= "where enabled = 'true' ";
+				$sql .= "order by profile_name asc ";
+				$prep_statement = $db->prepare(check_sql($sql));
+				$prep_statement->execute();
+				$result = $prep_statement->fetchAll(PDO::FETCH_ASSOC);
+				$result_count = count($result);
+				unset ($prep_statement, $sql);
+				$tmp_selected = '';
+				foreach($result as $row) {
+					if ('dingaling/'.$row['profile_name'].'/' == $select_value) {
+						$tmp_selected = "selected='selected'";
+					}
+					if ($select_type == "bridge") {
+						echo "		<option value='dingaling/".$row['profile_name']."/' $tmp_selected>".$row['profile_name']."@".$row['domain_name']."</option>\n";
 					}
 					$tmp_selected = '';
 				}
@@ -1994,8 +2028,7 @@ function outbound_route_to_bridge ($domain_uuid, $destination_number) {
 		//get the extension number using the dialplan_uuid
 			$sql = "select * ";
 			$sql .= "from v_dialplan_details ";
-			$sql .= "where (domain_uuid = '".$domain_uuid."' or domain_uuid is null) ";
-			$sql .= "and dialplan_uuid = '$dialplan_uuid' ";
+			$sql .= "where dialplan_uuid = '$dialplan_uuid' ";
 			$sql .= "order by dialplan_detail_order asc ";
 			$sub_result = $db->query($sql)->fetchAll(PDO::FETCH_ASSOC);
 			$regex_match = false;
@@ -2125,7 +2158,7 @@ function dialplan_add($domain_uuid, $dialplan_uuid, $dialplan_name, $dialplan_or
 	unset($sql);
 }
 
-function dialplan_detail_add($domain_uuid, $dialplan_uuid, $dialplan_detail_tag, $dialplan_detail_order, $dialplan_detail_group, $dialplan_detail_type, $dialplan_detail_data) {
+function dialplan_detail_add($domain_uuid, $dialplan_uuid, $dialplan_detail_tag, $dialplan_detail_order, $dialplan_detail_group, $dialplan_detail_type, $dialplan_detail_data, $dialplan_detail_break) {
 	global $db;
 	$dialplan_detail_uuid = uuid();
 	$sql = "insert into v_dialplan_details ";
@@ -2137,7 +2170,8 @@ function dialplan_detail_add($domain_uuid, $dialplan_uuid, $dialplan_detail_tag,
 	$sql .= "dialplan_detail_group, ";
 	$sql .= "dialplan_detail_order, ";
 	$sql .= "dialplan_detail_type, ";
-	$sql .= "dialplan_detail_data ";
+	$sql .= "dialplan_detail_data, ";
+	$sql .= "dialplan_detail_break ";
 	$sql .= ") ";
 	$sql .= "values ";
 	$sql .= "(";
@@ -2153,7 +2187,13 @@ function dialplan_detail_add($domain_uuid, $dialplan_uuid, $dialplan_detail_tag,
 	}
 	$sql .= "'".check_str($dialplan_detail_order)."', ";
 	$sql .= "'".check_str($dialplan_detail_type)."', ";
-	$sql .= "'".check_str($dialplan_detail_data)."' ";
+	$sql .= "'".check_str($dialplan_detail_data)."', ";
+	if (strlen($dialplan_detail_break) == 0) {
+		$sql .= "null ";
+	}
+	else {
+		$sql .= "'".check_str($dialplan_detail_break)."' ";
+	}
 	$sql .= ")";
 	$db->exec(check_sql($sql));
 	unset($sql);
@@ -2925,8 +2965,8 @@ if (!function_exists('save_call_center_xml')) {
 				}
 
 			//set the path
-				if (file_exists('/usr/share/fusionpbx/resources/templates/conf')) {
-					$path = "/usr/share/fusionpbx/resources/templates/conf";
+				if (file_exists('/usr/share/examples/fusionpbx/resources/templates/conf')) {
+					$path = "/usr/share/examples/fusionpbx/resources/templates/conf";
 				}
 				else {
 					$path = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH."/resources/templates/conf";
@@ -2966,8 +3006,8 @@ if (!function_exists('switch_conf_xml')) {
 			global $db, $domain_uuid;
 
 		//get the contents of the template
-			if (file_exists('/usr/share/fusionpbx/resources/templates/conf')) {
-				$path = "/usr/share/fusionpbx/resources/templates/conf";
+			if (file_exists('/usr/share/examples/fusionpbx/resources/templates/conf')) {
+				$path = "/usr/share/examples/fusionpbx/resources/templates/conf";
 			}
 			else {
 				$path = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH."/resources/templates/conf";
@@ -3013,8 +3053,8 @@ if (!function_exists('xml_cdr_conf_xml')) {
 			global $db, $domain_uuid;
 
 		//get the contents of the template
-		 	if (file_exists('/usr/share/fusionpbx/resources/templates/conf')) {
-				$path = "/usr/share/fusionpbx/resources/templates/conf";
+		 	if (file_exists('/usr/share/examples/fusionpbx/resources/templates/conf')) {
+				$path = "/usr/share/examples/fusionpbx/resources/templates/conf";
 			}
 			else {
 				$path = $_SERVER["DOCUMENT_ROOT"].PROJECT_PATH."/resources/templates/conf";

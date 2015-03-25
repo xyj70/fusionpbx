@@ -213,6 +213,9 @@
 					if (ring_group_ringback == "${rs-ring}") then
 						ring_group_ringback = "tone_stream://%(1000,4000,425.0,0.0);loops=-1";
 					end
+					if (ring_group_ringback == "${it-ring}") then
+						ring_group_ringback = "tone_stream://%(1000,4000,425.0,0.0);loops=-1";
+					end
 					if (ring_group_ringback == "") then
 						ring_group_ringback = "local_stream://default";
 					end
@@ -293,13 +296,21 @@
 						--send to user
 						if (ring_group_skip_active ~= nil) then
 							if (ring_group_skip_active == "true") then
-								extension_status = "show channels like "..destination_number.."@"..domain_name;
-								reply = trim(api:executeString(extension_status));
+								cmd = "show channels like "..destination_number;
+								reply = trim(api:executeString(cmd));
+								--freeswitch.consoleLog("notice", "[ring group] reply "..cmd.." " .. reply .. "\n");
 								if (reply == "0 total.") then
 									dial_string = "[sip_invite_domain="..domain_name..","..group_confirm.."leg_timeout="..destination_timeout..",leg_delay_start="..destination_delay..",dialed_extension=" .. row.destination_number .. ",extension_uuid="..extension_uuid.."]user/" .. row.destination_number .. "@" .. domain_name;
+								else
+									if (string.find(reply, domain_name)) then
+										--active call
+									else
+										dial_string = "[sip_invite_domain="..domain_name..","..group_confirm.."leg_timeout="..destination_timeout..",leg_delay_start="..destination_delay..",dialed_extension=" .. row.destination_number .. ",extension_uuid="..extension_uuid.."]user/" .. row.destination_number .. "@" .. domain_name;
+									end
 								end
 							else
-								dial_string = "[sip_invite_domain="..domain_name..","..group_confirm.."leg_timeout="..destination_timeout..",leg_delay_start="..destination_delay..",dialed_extension=" .. row.destination_number .. ",extension_uuid="..extension_uuid.."]user/" .. row.destination_number .. "@" .. domain_name;
+								--look inside the reply to check for the correct domain_name
+									dial_string = "[sip_invite_domain="..domain_name..","..group_confirm.."leg_timeout="..destination_timeout..",leg_delay_start="..destination_delay..",dialed_extension=" .. row.destination_number .. ",extension_uuid="..extension_uuid.."]user/" .. row.destination_number .. "@" .. domain_name;
 							end
 						else
 							dial_string = "[sip_invite_domain="..domain_name..","..group_confirm.."leg_timeout="..destination_timeout..",leg_delay_start="..destination_delay..",dialed_extension=" .. row.destination_number .. ",extension_uuid="..extension_uuid.."]user/" .. row.destination_number .. "@" .. domain_name;
@@ -336,7 +347,7 @@
 										dialplan_detail_data = r.dialplan_detail_data:gsub("$1", destination_result);
 									--if the session is set then process the actions
 										if (y == 0) then
-											square = "[sip_invite_domain="..domain_name..","..group_confirm.."leg_timeout="..destination_timeout..",leg_delay_start="..destination_delay..",ignore_early_media=true";
+											square = "[sip_invite_domain="..domain_name..","..group_confirm.."leg_timeout="..destination_timeout..",leg_delay_start="..destination_delay..",ignore_early_media=true,";
 										end
 										if (r.dialplan_detail_type == "set") then
 											--session:execute("eval", dialplan_detail_data);
@@ -369,19 +380,26 @@
 						end
 					end
 
-				--use a delimiter between dialstrings
+				--add a delimiter between destinations
 					if (dial_string ~= nil) then
 						--freeswitch.consoleLog("notice", "[ring group] dial_string: " .. dial_string .. "\n");
 						if (x == 0) then
-							app_data = "{ignore_early_media=true}"..dial_string;
+							if (ring_group_strategy == "enterprise") then
+								app_data = dial_string;
+							else
+								app_data = "{ignore_early_media=true}"..dial_string;
+							end
 						else
 							if (app_data == nil) then
-								app_data = "{ignore_early_media=true}"..dial_string;
+								if (ring_group_strategy == "enterprise") then
+									app_data = dial_string;
+								else
+									app_data = "{ignore_early_media=true}"..dial_string;
+								end
 							else
 								app_data = app_data .. delimiter .. dial_string;
 							end
 						end
-						--freeswitch.consoleLog("notice", "[ring group] app_data: " .. app_data .. "\n");
 					end
 
 				--increment the value of x
@@ -455,10 +473,18 @@
 							end
 						end
 
+					--execute the bridge
+						if (app_data ~= nil) then
+							if (ring_group_strategy == "enterprise") then
+								app_data = app_data:gsub("%[", "{");
+								app_data = app_data:gsub("%]", "}");
+							end
+							freeswitch.consoleLog("NOTICE", "[ring group] app_data: "..app_data.."\n");
+							session:execute("bridge", app_data);
+						end
+
 					--timeout destination
 						if (app_data ~= nil) then
-							--freeswitch.consoleLog("NOTICE", "[ring group] app_data: "..app_data.."\n");
-							session:execute("bridge", app_data);
 							if (session:getVariable("originate_disposition") == "ALLOTTED_TIMEOUT" 
 								or session:getVariable("originate_disposition") == "NO_ANSWER" 
 								or session:getVariable("originate_disposition") == "NO_USER_RESPONSE" 
@@ -483,7 +509,6 @@
 						end
 				end
 		end
-
 
 --actions
 	--ACTIONS = {}

@@ -32,6 +32,16 @@
 	dofile(scripts_dir.."/resources/functions/database_handle.lua");
 	dbh = database_handle('system');
 
+--prepare the api object
+	api = freeswitch.API();
+
+--add the trim function
+	function trim(s)
+		if (s) then
+			return s:gsub("^%s+", ""):gsub("%s+$", "")
+		end
+	end
+
 --get the cache
 	cache = trim(api:execute("memcache", "get app:dialplan:outbound:is_local:" .. destination_number .. "@" .. domain_name));
 
@@ -44,7 +54,6 @@
 		sql = sql .. "AND destination_enabled = 'true' "
 		--freeswitch.consoleLog("notice", "SQL:" .. sql .. "\n");
 		assert(dbh:query(sql, function(row)
-
 
 			--set the outbound caller id
 				if (outbound_caller_id_name ~= nil) then
