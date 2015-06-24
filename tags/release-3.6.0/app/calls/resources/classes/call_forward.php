@@ -36,6 +36,8 @@ include "root.php";
 		public $forward_all_destination;
 		public $forward_all_enabled;
 		private $dial_string;
+		public $outbound_caller_id_name;
+		public $outbound_caller_id_number;
 		public $accountcode;
 
 		public function set() {
@@ -53,6 +55,8 @@ include "root.php";
 					foreach ($result as &$row) {
 						$this->extension = $row["extension"];
 						$this->accountcode = $row["accountcode"];
+						$this->outbound_caller_id_name = $row["outbound_caller_id_name"];
+						$this->outbound_caller_id_number = $row["outbound_caller_id_number"];
 					}
 				}
 				unset ($prep_statement);
@@ -69,11 +73,16 @@ include "root.php";
 					if (strlen($this->accountcode) > 0) {
 						$dial_string .= ",accountcode=".$this->accountcode;
 					}
-					$dial_string .= "}";
 					if (extension_exists($this->forward_all_destination)) {
+						$dial_string .= "}";
 						$dial_string .= "user/".$this->forward_all_destination."@".$_SESSION['domain_name'];
 					}
 					else {
+						$dial_string .= ",outbound_caller_id_name=".$this->outbound_caller_id_name;
+						$dial_string .= ",outbound_caller_id_number=".$this->outbound_caller_id_number;
+						$dial_string .= ",origination_caller_id_name=".$this->outbound_caller_id_name;
+						$dial_string .= ",origination_caller_id_number=".$this->outbound_caller_id_number;
+						$dial_string .= "}";
 						$bridge = outbound_route_to_bridge ($_SESSION['domain_uuid'], $this->forward_all_destination);
 						//if (strlen($bridge[0]) > 0) {
 						//	$dial_string .= $bridge[0];

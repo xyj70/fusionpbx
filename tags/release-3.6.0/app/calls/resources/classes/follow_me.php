@@ -35,6 +35,8 @@ include "root.php";
 		public $cid_number_prefix;
 		public $accountcode;
 		public $follow_me_enabled;
+		public $outbound_caller_id_name;
+		public $outbound_caller_id_number;
 		private $extension;
 
 		public $destination_data_1;
@@ -295,7 +297,9 @@ include "root.php";
 						$follow_me_uuid = $row["follow_me_uuid"];
 						$this->cid_name_prefix = $row["cid_name_prefix"];
 						$this->cid_number_prefix = $row["cid_number_prefix"];
-					}
+						$this->accountcode = $row["accountcode"];
+						$this->outbound_caller_id_name = $row["outbound_caller_id_name"];
+						$this->outbound_caller_id_number = $row["outbound_caller_id_number"];						}
 				}
 				unset ($prep_statement);
 
@@ -380,13 +384,16 @@ include "root.php";
 								}
 							}
 							else {
-								$dial_string .= "outbound_caller_id_number=\${outbound_caller_id_number},";
-								$dial_string .= "presence_id=".$this->extension."@".$_SESSION['domain_name'].",";
+								$dial_string .= "outbound_caller_id_name=".$this->outbound_caller_id_name;
+								$dial_string .= ",outbound_caller_id_number=".$this->outbound_caller_id_number;
+								$dial_string .= ",origination_caller_id_name=".$this->outbound_caller_id_name;
+								$dial_string .= ",origination_caller_id_number=".$this->outbound_caller_id_number;
+								$dial_string .= ",presence_id=".$this->extension."@".$_SESSION['domain_name'];
 								if ($row["follow_me_prompt"] == "1") {
-									$dial_string .= "group_confirm_key=exec,group_confirm_file=lua confirm.lua,confirm=true,";
+									$dial_string .= ",group_confirm_key=exec,group_confirm_file=lua confirm.lua,confirm=true";
 								}
-								$dial_string .= "leg_delay_start=".$row["follow_me_delay"].",";
-								$dial_string .= "leg_timeout=".$row["follow_me_timeout"]."]";
+								$dial_string .= ",leg_delay_start=".$row["follow_me_delay"];
+								$dial_string .= ",leg_timeout=".$row["follow_me_timeout"]."]";
 								if (is_numeric($row["follow_me_destination"])) {
 									$bridge = outbound_route_to_bridge ($_SESSION['domain_uuid'], $row["follow_me_destination"]);
 									//if (strlen($bridge[0]) > 0) {
