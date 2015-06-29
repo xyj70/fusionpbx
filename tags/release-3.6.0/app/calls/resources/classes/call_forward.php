@@ -78,10 +78,12 @@ include "root.php";
 						$dial_string .= "user/".$this->forward_all_destination."@".$_SESSION['domain_name'];
 					}
 					else {
-						$dial_string .= ",outbound_caller_id_name=".$this->outbound_caller_id_name;
-						$dial_string .= ",outbound_caller_id_number=".$this->outbound_caller_id_number;
-						$dial_string .= ",origination_caller_id_name=".$this->outbound_caller_id_name;
-						$dial_string .= ",origination_caller_id_number=".$this->outbound_caller_id_number;
+						if ($_SESSION['cdr']['call_forward_fix']['boolean'] == "true"){
+							$dial_string .= ",outbound_caller_id_name=".$this->outbound_caller_id_name;
+							$dial_string .= ",outbound_caller_id_number=".$this->outbound_caller_id_number;
+							$dial_string .= ",origination_caller_id_name=".$this->outbound_caller_id_name;
+							$dial_string .= ",origination_caller_id_number=".$this->outbound_caller_id_number;
+						}
 						$dial_string .= "}";
 						$bridge = outbound_route_to_bridge ($_SESSION['domain_uuid'], $this->forward_all_destination);
 						//if (strlen($bridge[0]) > 0) {
